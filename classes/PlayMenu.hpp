@@ -8,7 +8,7 @@ class PlayMenu : public SubWin{
       int is_pressed = -1;
     public:
       PlayMenu(int height, int width, int y0, int x0);
-      void draw_menu();
+      int menu();
       int getPressed();
 };
 

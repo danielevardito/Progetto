@@ -6,7 +6,9 @@ PlayMenu::PlayMenu(int height, int width, int y0, int x0) : SubWin(height, width
     SubWin(height, width, y0, x0);
 }
 
-void PlayMenu::draw_menu(){
+int PlayMenu::menu(){
+    this->is_pressed = -1;
+
     mvwprintw(this->win, this->get_height()/2-1, this->get_width()/2-2, "PLAY");
     mvwprintw(this->win, this->get_height()/2+1, this->get_width()/2-2, "QUIT");
 
@@ -31,8 +33,10 @@ void PlayMenu::draw_menu(){
         else{
             this->is_pressed = button;
         }
-        wrefresh(this->win);
+        if(this->is_pressed == -1) wrefresh(this->win);
     }
+
+    return this->is_pressed;
     
 }
 

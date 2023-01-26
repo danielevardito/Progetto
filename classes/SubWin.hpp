@@ -10,9 +10,8 @@ Classe che rappresenta una sottofinestra. Essa serve alle varie sottofinestre
 che hanno attributi e metodi in comune.
 */
 class SubWin{
-    protected:
-      WINDOW *win;
     public:
+      WINDOW *win;
       SubWin(int height, int width, int y0, int x0);
 
       int get_beg_x();

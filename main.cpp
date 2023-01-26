@@ -19,18 +19,12 @@ int main(){
     MainWin *main_win = new MainWin();
     main_win->draw_empty();
 
-    WINDOW *play_menu = newwin(main_win->get_height()-2, main_win->get_width()-2, main_win->get_beg_y()+1, main_win->get_beg_x()+1);
-    box(play_menu, 0, 0);
+    PlayMenu *pm = new PlayMenu(main_win->get_height(), main_win->get_width(), main_win->get_beg_y(), main_win->get_beg_x());
+
+    int n = pm->menu();
+
+    printw("%d", n);
     refresh();
-    wrefresh(play_menu);
-
-    int height, width, y0, x0;
-    getmaxyx(play_menu, height, width);
-    getbegyx(play_menu, y0, x0);
-
-    PlayMenu *pm = new PlayMenu(height, width, y0, x0);
-
-    pm->draw_menu();
     
     endwin();
 
