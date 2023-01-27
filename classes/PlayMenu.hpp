@@ -3,13 +3,18 @@
 
 #include "SubWin.hpp"
 
+/*
+Classe che rappresenta la finestra PLAY-QUIT. Essa eredita proprietà e metodi dalla classe
+SubWin, che rappresenta una generica sottofinestra del gioco.
+*/
+
 class PlayMenu : public SubWin{
     protected:
       int is_pressed = -1;
     public:
       PlayMenu(int height, int width, int y0, int x0);
-      int menu();
-      int getPressed();
+      //mostra il menu e restituisce come valore la scelta dell'utente
+      int menu(); 
 };
 
 #endif

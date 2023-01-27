@@ -27,7 +27,6 @@ int main(){
     refresh();
     
     endwin();
-    
 
     return 0;
 }
