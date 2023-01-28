@@ -6,20 +6,20 @@ Map::Map(int height, int width, int y0, int x0) : SubWin(height, width, y0, x0){
 }
 
 void Map::draw_spaces(){
-    for(int i = 0; i < 3; i++){
-        mvwhline(this->win, this->get_height()/2+i, 0, ' ', 3);
-    }
-    
-    for(int i = 0; i < 3; i++){
-        mvwhline(this->win, 0, this->get_width()-4, ' ', 4);
-    }
+    mvwvline(this->win, 0, 0, ' ', this->get_height());
+    mvwvline(this->win, 0, 1, ' ', this->get_height());
+
+    mvwvline(this->win, 0, this->get_width()-1, ' ', this->get_height());
+    mvwvline(this->win, 0, this->get_width()-2, ' ', this->get_height());
 
     mvwhline(this->win, this->get_height()/2, 0, ' ', this->get_width());
 }
 
 void Map::draw_map1(){
+    this->draw_empty();
+
     int n;
-    int nX = rand() % this->get_width()/10 + 2;
+    int nX = rand() % this->get_width()/7 + 3;
     int i;
 
     for(i = 1; i < nX; i = i+2){
@@ -38,7 +38,9 @@ void Map::draw_map1(){
     wrefresh(this->win);
 }
 
-void Map::draw_map2(){
+void Map::draw_mapX(){
+    box(this->win, 'X', 'X');
+
     int n = rand() % 6+3;
     int x0, y0, nX, nY;
 
@@ -59,11 +61,22 @@ void Map::draw_map2(){
     wrefresh(this->win);
 }
 
-void Map::draw_map4(){
-    int height7 = this->get_height()/7;
-    int width10 = this->get_width()/10;
+void Map::draw_map2(){
+    this->draw_empty();
+
+    this->draw_map1();
+    this->draw_mapX();
+}
+
+void Map::draw_map3(){
+    this->draw_empty();
+
+    double height7 = this->get_height()/7;
+    double width10 = this->get_width()/10;
     mvwhline(this->win, height7*3, 0, ACS_HLINE, width10);
-    mvwhline(this->win, height7*5, 0, ACS_HLINE, width10*2);
+    mvwvline(this->win, height7*5, width10, ACS_VLINE, height7*5);
+    mvwhline(this->win, height7*5, width10, ACS_HLINE, width10);
+    mvwaddch(this->win, height7*5, width10, ACS_ULCORNER);
     mvwvline(this->win, height7, width10, ACS_VLINE, height7*2);
     mvwaddch(this->win, height7*3, width10, ACS_LRCORNER);
     mvwvline(this->win, height7*2, width10*2, ACS_VLINE, height7*3);
@@ -86,7 +99,7 @@ void Map::draw_map4(){
     mvwaddch(this->win, height7*5, width10*7, ACS_URCORNER);
     mvwhline(this->win, height7*6, width10*7, ACS_HLINE, width10*2);
     mvwaddch(this->win, height7*6, width10*7, ACS_LLCORNER);
-    mvwvline(this->win, height7*6, width10*9, ACS_VLINE, height7*2);
+    mvwvline(this->win, height7*6, width10*9, ACS_VLINE, height7*4);
     mvwaddch(this->win, height7*6, width10*9, ACS_URCORNER);
     mvwhline(this->win, height7*2, width10*4, ACS_HLINE, width10*3);
     mvwvline(this->win, height7*2, width10*4, ACS_VLINE, height7);
@@ -99,6 +112,115 @@ void Map::draw_map4(){
     mvwaddch(this->win, height7*3, width10*6, ACS_URCORNER);
 
     wrefresh(this->win);
+}
+
+void Map::draw_map4(){
+    this->draw_empty();
+
+    int heigth7 = this->get_height()/7;
+    int width12 = this->get_width()/12;
+
+    mvwvline(win, 0, width12, ACS_VLINE, heigth7*3);
+    mvwvline(win, heigth7*5, width12, ACS_VLINE, heigth7*5);
+    mvwvline(win, heigth7, width12*2, ACS_VLINE, heigth7*4);
+    mvwhline(win, heigth7*5, width12, ACS_HLINE, width12);
+    mvwhline(win, 0, width12, ACS_HLINE, width12*3);
+    mvwaddch(win, heigth7*5, width12, ACS_ULCORNER);
+    mvwaddch(win, heigth7*5, width12*2, ACS_LRCORNER);
+    mvwaddch(win, 0, width12, ACS_ULCORNER);
+    mvwhline(win, heigth7, width12*2, ACS_HLINE, width12);
+    mvwvline(win, heigth7, width12*3, ACS_VLINE, heigth7*3);
+    mvwaddch(win, heigth7, width12*2, ACS_ULCORNER);
+    mvwaddch(win, heigth7, width12*3, ACS_URCORNER);
+    mvwvline(win, 0, width12*4, ACS_VLINE, heigth7*2);
+    mvwaddch(win, 0, width12*4, ACS_URCORNER);
+    mvwhline(win, heigth7*4, width12*3, ACS_HLINE, width12*2);
+    mvwvline(win, heigth7*3, width12*5, ACS_VLINE, heigth7);
+    mvwhline(win, heigth7*3, width12*5, ACS_HLINE, width12);
+    mvwhline(win, heigth7*2, width12*4, ACS_HLINE, width12*5);
+    mvwaddch(win, heigth7*4, width12*3, ACS_LLCORNER);
+    mvwaddch(win, heigth7*4, width12*5, ACS_LRCORNER);
+    mvwaddch(win, heigth7*3, width12*5, ACS_ULCORNER);
+    mvwaddch(win, heigth7*2, width12*4, ACS_LLCORNER);
+    mvwvline(win, heigth7*3, width12*6, ACS_VLINE, heigth7*3);
+    mvwvline(win, heigth7*2, width12*9, ACS_VLINE, heigth7*3);
+    mvwaddch(win, heigth7*3, width12*6, ACS_URCORNER);
+    mvwaddch(win, heigth7*2, width12*9, ACS_URCORNER);
+    mvwhline(win, heigth7*5, width12*9, ACS_HLINE, width12*3);
+    mvwhline(win, heigth7*6, width12*6, ACS_HLINE, width12*6);
+    mvwaddch(win, heigth7*6, width12*6, ACS_LLCORNER);
+    mvwaddch(win, heigth7*5, width12*9, ACS_LLCORNER);
+    mvwvline(win, 0, width12*12, ACS_VLINE, heigth7*5);
+    mvwvline(win, heigth7*6, width12*12, ACS_VLINE, heigth7*3);
+    mvwaddch(win, heigth7*5, width12*12, ACS_LRCORNER);
+    mvwaddch(win, heigth7*6, width12*12, ACS_URCORNER);
+
+    wrefresh(win);
+}
+
+void Map::draw_map5(){
+    this->draw_empty();
+
+    int heigth7 = this->get_height()/7;
+    int width12 = this->get_width()/12;
+
+    mvwvline(win, heigth7*2, width12, ACS_VLINE, heigth7*2);
+    mvwvline(win, heigth7*5, width12, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*2, width12, ACS_HLINE, width12*4);
+    mvwhline(win, heigth7*7, width12, ACS_HLINE, width12*4);
+    mvwaddch(win, heigth7*2, width12, ACS_ULCORNER);
+    mvwaddch(win, heigth7*7, width12, ACS_LLCORNER);
+
+    mvwvline(win, heigth7*3, width12*2, ACS_VLINE, heigth7);
+    mvwvline(win, heigth7*5, width12*2, ACS_VLINE, heigth7);
+    mvwhline(win, heigth7*3, width12*2, ACS_HLINE, width12*3);
+    mvwhline(win, heigth7*6, width12*2, ACS_HLINE, width12*3);
+    mvwaddch(win, heigth7*3, width12*2, ACS_ULCORNER);
+    mvwaddch(win, heigth7*6, width12*2, ACS_LLCORNER);
+
+    mvwvline(win, heigth7*2, width12*12, ACS_VLINE, heigth7*2);
+    mvwvline(win, heigth7*5, width12*12, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*2, width12*7, ACS_HLINE, width12*5);
+    mvwhline(win, heigth7*7, width12*7, ACS_HLINE, width12*5);
+    mvwaddch(win, heigth7*2, width12*12, ACS_URCORNER);
+    mvwaddch(win, heigth7*7, width12*12, ACS_LRCORNER);
+
+    mvwvline(win, heigth7*3, width12*11, ACS_VLINE, heigth7);
+    mvwvline(win, heigth7*5, width12*11, ACS_VLINE, heigth7);
+    mvwhline(win, heigth7*3, width12*7, ACS_HLINE, width12*4);
+    mvwhline(win, heigth7*6, width12*7, ACS_HLINE, width12*4);
+    mvwaddch(win, heigth7*3, width12*11, ACS_URCORNER);
+    mvwaddch(win, heigth7*6, width12*11, ACS_LRCORNER);
+
+    wrefresh(win);
+}
+
+void Map::draw_n_map(int n){
+    switch(n){
+        case 1:
+          this->draw_map1();
+          break;
+
+        case 2:
+          this->draw_map2();
+          break;
+
+        case 3:
+          this->draw_map3();
+          break;
+
+        case 4:
+          this->draw_map4();
+          break;
+
+        case 5:
+          this->draw_map5();
+          break;
+
+        default:
+          this->draw_map2();
+          break;
+    }
 }
 
 WINDOW* Map::getWin(){

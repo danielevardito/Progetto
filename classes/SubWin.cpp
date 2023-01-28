@@ -2,6 +2,7 @@
 
 SubWin::SubWin(int height, int width, int y0, int x0){
     this->win = newwin(height-2, width-2, y0+1, x0+1);
+    //box(this->win, 0, 0);
 }
 
 int SubWin::get_beg_x(){
@@ -21,7 +22,6 @@ int SubWin::get_width(){
 }
 
 void SubWin::draw_empty(){
-    box(this->win, 0, 0);
     wclear(this->win);
     refresh();
     wrefresh(this->win);
