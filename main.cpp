@@ -26,7 +26,7 @@ int main(){
 
     int n = rand() % 6 + 1;
 
-    map->draw_n_map(n);
+    map->draw_n_map(2);
 
     getch();
 

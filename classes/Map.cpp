@@ -4,7 +4,10 @@ Map::Map(int height, int width, int y0, int x0) : SubWin(height, width, y0, x0){
     srand (time(NULL));
     SubWin(height, width, y0, x0);
 }
-
+/*
+Scrive degli spazi al centro e ai lati della mappa per fare in modo che il personaggio e i nemici
+si possano sempre incontrare
+*/
 void Map::draw_spaces(){
     mvwvline(this->win, 0, 0, ' ', this->get_height());
     mvwvline(this->win, 0, 1, ' ', this->get_height());
@@ -14,12 +17,14 @@ void Map::draw_spaces(){
 
     mvwhline(this->win, this->get_height()/2, 0, ' ', this->get_width());
 }
-
+/*
+Prima mappa, genera n linee di m lunghezza, dove n e m sono randomici.
+*/
 void Map::draw_map1(){
     this->draw_empty();
 
     int n;
-    int nX = rand() % this->get_width()/7 + 3;
+    int nX = rand() % this->get_width()/7 + 6;
     int i;
 
     for(i = 1; i < nX; i = i+2){
@@ -37,19 +42,22 @@ void Map::draw_map1(){
 
     wrefresh(this->win);
 }
-
+/*
+È una pseudo mappa randomica che serve a creare la mappa 2. Essa è composta da n rettangoli di 
+h e b dimensioni, dove h e b sono generati randomicamente.
+*/
 void Map::draw_mapX(){
     box(this->win, 'X', 'X');
 
-    int n = rand() % 6+3;
+    int n = rand() % 6+5;
     int x0, y0, nX, nY;
 
     for(int i = 0; i < n; i++){
         x0 = rand() % this->get_width();
         y0 = rand() % this->get_height();
 
-        nX = rand() % 5+1;
-        nY = rand() % 4+1;
+        nX = rand() % 3+3;
+        nY = rand() % 3+3;
 
         for(int j = y0; j < nY+y0; j++){
             mvwhline(this->win, j, x0, 'X', nX);
@@ -60,14 +68,19 @@ void Map::draw_mapX(){
 
     wrefresh(this->win);
 }
-
+/*
+È una combinazione tra mappa1 e mappaX, quindi ci saranno n rettangoli e m linee generati randomicamente 
+*/
 void Map::draw_map2(){
     this->draw_empty();
 
     this->draw_map1();
     this->draw_mapX();
 }
-
+/*
+Prima mappa disegnata, è fatta con unità basate in frazioni di 7 per l'altezza e 
+frazioni di 10 per la lunghezza.
+*/
 void Map::draw_map3(){
     this->draw_empty();
 
@@ -114,6 +127,10 @@ void Map::draw_map3(){
     wrefresh(this->win);
 }
 
+/*
+Seconda mappa disegnata. È fatta con unità basate in frazioni di 7 per l'altezza e frazioni di 12
+per la lunghezza
+*/
 void Map::draw_map4(){
     this->draw_empty();
 
@@ -157,7 +174,10 @@ void Map::draw_map4(){
 
     wrefresh(win);
 }
-
+/*
+Terza mappa disegnata. È fatta con unità basate in frazioni di 7 per l'altezza e frazioni di 12
+per la lunghezza.
+*/
 void Map::draw_map5(){
     this->draw_empty();
 
@@ -195,6 +215,9 @@ void Map::draw_map5(){
     wrefresh(win);
 }
 
+/*
+Dato un numero, disegna la mappa corrispondente. 
+*/
 void Map::draw_n_map(int n){
     switch(n){
         case 1:
