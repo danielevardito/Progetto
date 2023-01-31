@@ -1,7 +1,7 @@
 #include "classes/MainWin.hpp"
 #include "classes/PlayMenu.hpp"
 #include "classes/Map.hpp"
-
+#include "classes/Player.hpp"
 
 using namespace std;
 
@@ -26,7 +26,14 @@ int main(){
 
     int n = rand() % 6 + 1;
 
-    map->draw_n_map(2);
+    map->draw_n_map(n);
+
+    Player *p = new Player(map);
+
+    do{
+        p->display();
+        wrefresh(win);
+    }while(p->getmv() != 'x');
 
     getch();
 

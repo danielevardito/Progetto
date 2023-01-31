@@ -17,6 +17,8 @@ class Map : public SubWin{
       void draw_map4();
       void draw_map5();
       void draw_n_map(int n);
+
+      bool is_blank(int y, int x);
       WINDOW* getWin();
 };
 

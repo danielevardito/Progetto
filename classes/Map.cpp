@@ -246,6 +246,11 @@ void Map::draw_n_map(int n){
     }
 }
 
+bool Map::is_blank(int y, int x){
+    if(mvwinch(this->win, y, x) == ' ') return true;
+    else return false;
+}
+
 WINDOW* Map::getWin(){
     return this->win;
 }
