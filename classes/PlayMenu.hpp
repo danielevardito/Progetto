@@ -12,7 +12,7 @@ class PlayMenu : public SubWin{
     protected:
       int is_pressed = -1;
     public:
-      PlayMenu(int height, int width, int y0, int x0);
+      PlayMenu(MainWin *mw);
       //mostra il menu e restituisce come valore la scelta dell'utente
       int menu(); 
 };

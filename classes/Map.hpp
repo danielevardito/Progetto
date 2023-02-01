@@ -10,7 +10,7 @@ class Map : public SubWin{
       void draw_spaces();
       void draw_mapX();
     public:
-      Map(int height, int width, int y0, int x0);
+      Map(MainWin *mw);
       void draw_map1();
       void draw_map2();
       void draw_map3();

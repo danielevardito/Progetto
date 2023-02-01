@@ -1,8 +1,8 @@
 #include "Map.hpp"
 
-Map::Map(int height, int width, int y0, int x0) : SubWin(height, width, y0, x0){
+Map::Map(MainWin *mw) : SubWin(mw, true){
     srand (time(NULL));
-    SubWin(height, width, y0, x0);
+    SubWin(mw, true);
 }
 /*
 Scrive degli spazi al centro e ai lati della mappa per fare in modo che il personaggio e i nemici
@@ -24,7 +24,7 @@ void Map::draw_map1(){
     this->draw_empty();
 
     int n;
-    int nX = rand() % this->get_width()/7 + 6;
+    int nX = rand() % this->get_width()/4 + 7;
     int i;
 
     for(i = 1; i < nX; i = i+2){
@@ -40,6 +40,8 @@ void Map::draw_map1(){
 
     this->draw_spaces();
 
+    box(this->win, 0, 0);
+
     wrefresh(this->win);
 }
 /*
@@ -49,7 +51,7 @@ h e b dimensioni, dove h e b sono generati randomicamente.
 void Map::draw_mapX(){
     box(this->win, 'X', 'X');
 
-    int n = rand() % 6+5;
+    int n = rand() % 6+10;
     int x0, y0, nX, nY;
 
     for(int i = 0; i < n; i++){
@@ -76,6 +78,8 @@ void Map::draw_map2(){
 
     this->draw_map1();
     this->draw_mapX();
+
+    box(this->win, 0, 0);
 }
 /*
 Prima mappa disegnata, è fatta con unità basate in frazioni di 7 per l'altezza e 
@@ -124,6 +128,8 @@ void Map::draw_map3(){
     mvwaddch(this->win, height7*3, width10*4, ACS_LLCORNER);
     mvwaddch(this->win, height7*3, width10*6, ACS_URCORNER);
 
+    box(this->win, 0, 0);
+
     wrefresh(this->win);
 }
 
@@ -134,43 +140,47 @@ per la lunghezza
 void Map::draw_map4(){
     this->draw_empty();
 
-    int heigth7 = this->get_height()/7;
+    //box(this->win, 0, 0);
+
+    int height7 = this->get_height()/7;
     int width12 = this->get_width()/12;
 
-    mvwvline(win, 0, width12, ACS_VLINE, heigth7*3);
-    mvwvline(win, heigth7*5, width12, ACS_VLINE, heigth7*5);
-    mvwvline(win, heigth7, width12*2, ACS_VLINE, heigth7*4);
-    mvwhline(win, heigth7*5, width12, ACS_HLINE, width12);
+    mvwvline(win, 0, width12, ACS_VLINE, height7*3);
+    mvwvline(win, height7*5, width12, ACS_VLINE, height7*5);
+    mvwvline(win, height7, width12*2, ACS_VLINE, height7*4);
+    mvwhline(win, height7*5, width12, ACS_HLINE, width12);
     mvwhline(win, 0, width12, ACS_HLINE, width12*3);
-    mvwaddch(win, heigth7*5, width12, ACS_ULCORNER);
-    mvwaddch(win, heigth7*5, width12*2, ACS_LRCORNER);
+    mvwaddch(win, height7*5, width12, ACS_ULCORNER);
+    mvwaddch(win, height7*5, width12*2, ACS_LRCORNER);
     mvwaddch(win, 0, width12, ACS_ULCORNER);
-    mvwhline(win, heigth7, width12*2, ACS_HLINE, width12);
-    mvwvline(win, heigth7, width12*3, ACS_VLINE, heigth7*3);
-    mvwaddch(win, heigth7, width12*2, ACS_ULCORNER);
-    mvwaddch(win, heigth7, width12*3, ACS_URCORNER);
-    mvwvline(win, 0, width12*4, ACS_VLINE, heigth7*2);
+    mvwhline(win, height7, width12*2, ACS_HLINE, width12);
+    mvwvline(win, height7, width12*3, ACS_VLINE, height7*3);
+    mvwaddch(win, height7, width12*2, ACS_ULCORNER);
+    mvwaddch(win, height7, width12*3, ACS_URCORNER);
+    mvwvline(win, 0, width12*4, ACS_VLINE, height7*2);
     mvwaddch(win, 0, width12*4, ACS_URCORNER);
-    mvwhline(win, heigth7*4, width12*3, ACS_HLINE, width12*2);
-    mvwvline(win, heigth7*3, width12*5, ACS_VLINE, heigth7);
-    mvwhline(win, heigth7*3, width12*5, ACS_HLINE, width12);
-    mvwhline(win, heigth7*2, width12*4, ACS_HLINE, width12*5);
-    mvwaddch(win, heigth7*4, width12*3, ACS_LLCORNER);
-    mvwaddch(win, heigth7*4, width12*5, ACS_LRCORNER);
-    mvwaddch(win, heigth7*3, width12*5, ACS_ULCORNER);
-    mvwaddch(win, heigth7*2, width12*4, ACS_LLCORNER);
-    mvwvline(win, heigth7*3, width12*6, ACS_VLINE, heigth7*3);
-    mvwvline(win, heigth7*2, width12*9, ACS_VLINE, heigth7*3);
-    mvwaddch(win, heigth7*3, width12*6, ACS_URCORNER);
-    mvwaddch(win, heigth7*2, width12*9, ACS_URCORNER);
-    mvwhline(win, heigth7*5, width12*9, ACS_HLINE, width12*3);
-    mvwhline(win, heigth7*6, width12*6, ACS_HLINE, width12*6);
-    mvwaddch(win, heigth7*6, width12*6, ACS_LLCORNER);
-    mvwaddch(win, heigth7*5, width12*9, ACS_LLCORNER);
-    mvwvline(win, 0, width12*12, ACS_VLINE, heigth7*5);
-    mvwvline(win, heigth7*6, width12*12, ACS_VLINE, heigth7*3);
-    mvwaddch(win, heigth7*5, width12*12, ACS_LRCORNER);
-    mvwaddch(win, heigth7*6, width12*12, ACS_URCORNER);
+    mvwhline(win, height7*4, width12*3, ACS_HLINE, width12*2);
+    mvwvline(win, height7*3, width12*5, ACS_VLINE, height7);
+    mvwhline(win, height7*3, width12*5, ACS_HLINE, width12);
+    mvwhline(win, height7*2, width12*4, ACS_HLINE, width12*5);
+    mvwaddch(win, height7*4, width12*3, ACS_LLCORNER);
+    mvwaddch(win, height7*4, width12*5, ACS_LRCORNER);
+    mvwaddch(win, height7*3, width12*5, ACS_ULCORNER);
+    mvwaddch(win, height7*2, width12*4, ACS_LLCORNER);
+    mvwvline(win, height7*3, width12*6, ACS_VLINE, height7*3);
+    mvwvline(win, height7*2, width12*9, ACS_VLINE, height7*3);
+    mvwaddch(win, height7*3, width12*6, ACS_URCORNER);
+    mvwaddch(win, height7*2, width12*9, ACS_URCORNER);
+    mvwhline(win, height7*5, width12*9, ACS_HLINE, width12*2);
+    mvwhline(win, height7*6, width12*6, ACS_HLINE, width12*5);
+    mvwaddch(win, height7*6, width12*6, ACS_LLCORNER);
+    mvwaddch(win, height7*5, width12*9, ACS_LLCORNER);
+    mvwvline(win, 0, width12*11, ACS_VLINE, height7*5);
+    mvwvline(win, height7*6, width12*11, ACS_VLINE, height7*3);
+    mvwaddch(win, height7*5, width12*11, ACS_LRCORNER);
+    mvwaddch(win, height7*6, width12*11, ACS_URCORNER);
+
+    box(this->win, 0, 0);
 
     wrefresh(win);
 }
@@ -181,36 +191,38 @@ per la lunghezza.
 void Map::draw_map5(){
     this->draw_empty();
 
-    int heigth7 = this->get_height()/7;
+    int height7 = this->get_height()/7;
     int width12 = this->get_width()/12;
 
-    mvwvline(win, heigth7*2, width12, ACS_VLINE, heigth7*2);
-    mvwvline(win, heigth7*5, width12, ACS_VLINE, heigth7*2);
-    mvwhline(win, heigth7*2, width12, ACS_HLINE, width12*4);
-    mvwhline(win, heigth7*7, width12, ACS_HLINE, width12*4);
-    mvwaddch(win, heigth7*2, width12, ACS_ULCORNER);
-    mvwaddch(win, heigth7*7, width12, ACS_LLCORNER);
+    mvwvline(win, height7, width12, ACS_VLINE, height7*2);
+    mvwvline(win, height7*4, width12, ACS_VLINE, height7*2);
+    mvwhline(win, height7, width12, ACS_HLINE, width12*4);
+    mvwhline(win, height7*6, width12, ACS_HLINE, width12*4);
+    mvwaddch(win, height7, width12, ACS_ULCORNER);
+    mvwaddch(win, height7*6, width12, ACS_LLCORNER);
 
-    mvwvline(win, heigth7*3, width12*2, ACS_VLINE, heigth7);
-    mvwvline(win, heigth7*5, width12*2, ACS_VLINE, heigth7);
-    mvwhline(win, heigth7*3, width12*2, ACS_HLINE, width12*3);
-    mvwhline(win, heigth7*6, width12*2, ACS_HLINE, width12*3);
-    mvwaddch(win, heigth7*3, width12*2, ACS_ULCORNER);
-    mvwaddch(win, heigth7*6, width12*2, ACS_LLCORNER);
+    mvwvline(win, height7*2, width12*2, ACS_VLINE, height7);
+    mvwvline(win, height7*4, width12*2, ACS_VLINE, height7);
+    mvwhline(win, height7*2, width12*2, ACS_HLINE, width12*3);
+    mvwhline(win, height7*5, width12*2, ACS_HLINE, width12*3);
+    mvwaddch(win, height7*2, width12*2, ACS_ULCORNER);
+    mvwaddch(win, height7*5, width12*2, ACS_LLCORNER);
 
-    mvwvline(win, heigth7*2, width12*12, ACS_VLINE, heigth7*2);
-    mvwvline(win, heigth7*5, width12*12, ACS_VLINE, heigth7*2);
-    mvwhline(win, heigth7*2, width12*7, ACS_HLINE, width12*5);
-    mvwhline(win, heigth7*7, width12*7, ACS_HLINE, width12*5);
-    mvwaddch(win, heigth7*2, width12*12, ACS_URCORNER);
-    mvwaddch(win, heigth7*7, width12*12, ACS_LRCORNER);
+    mvwvline(win, height7, width12*10, ACS_VLINE, height7*2);
+    mvwvline(win, height7*4, width12*10, ACS_VLINE, height7*2);
+    mvwhline(win, height7, width12*6, ACS_HLINE, width12*4);
+    mvwhline(win, height7*6, width12*6, ACS_HLINE, width12*4);
+    mvwaddch(win, height7, width12*10, ACS_URCORNER);
+    mvwaddch(win, height7*6, width12*10, ACS_LRCORNER);
 
-    mvwvline(win, heigth7*3, width12*11, ACS_VLINE, heigth7);
-    mvwvline(win, heigth7*5, width12*11, ACS_VLINE, heigth7);
-    mvwhline(win, heigth7*3, width12*7, ACS_HLINE, width12*4);
-    mvwhline(win, heigth7*6, width12*7, ACS_HLINE, width12*4);
-    mvwaddch(win, heigth7*3, width12*11, ACS_URCORNER);
-    mvwaddch(win, heigth7*6, width12*11, ACS_LRCORNER);
+    mvwvline(win, height7*2, width12*9, ACS_VLINE, height7);
+    mvwvline(win, height7*4, width12*9, ACS_VLINE, height7);
+    mvwhline(win, height7*2, width12*6, ACS_HLINE, width12*3);
+    mvwhline(win, height7*5, width12*6, ACS_HLINE, width12*3);
+    mvwaddch(win, height7*2, width12*9, ACS_URCORNER);
+    mvwaddch(win, height7*5, width12*9, ACS_LRCORNER);
+
+    box(this->win, 0, 0);
 
     wrefresh(win);
 }
@@ -244,6 +256,7 @@ void Map::draw_n_map(int n){
           this->draw_map2();
           break;
     }
+
 }
 
 bool Map::is_blank(int y, int x){

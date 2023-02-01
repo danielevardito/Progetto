@@ -1,8 +1,12 @@
 #include "SubWin.hpp"
 
-SubWin::SubWin(int height, int width, int y0, int x0){
-    this->win = newwin(height-2, width-2, y0+1, x0+1);
-    //box(this->win, 0, 0);
+SubWin::SubWin(MainWin *mw, bool wide){
+    if(wide) 
+      this->win = newwin(mw->get_height()-3, mw->get_width(), mw->get_beg_y()+2, mw->get_beg_x());
+    else
+        this->win = newwin(3, mw->get_width(), mw->get_beg_y(), mw->get_beg_x());
+    box(this->win, 0, 0);
+      
 }
 
 int SubWin::get_beg_x(){

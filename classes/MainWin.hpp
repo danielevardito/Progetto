@@ -16,6 +16,8 @@ class MainWin{
       WINDOW *win;
     public:
       MainWin(); //inizializza la finestra
+
+      WINDOW* getWin();
       int get_beg_x();
       int get_beg_y();
       int get_width();

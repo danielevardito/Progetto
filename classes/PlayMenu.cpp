@@ -2,8 +2,8 @@
 
 using namespace std;
 
-PlayMenu::PlayMenu(int height, int width, int y0, int x0) : SubWin(height, width, y0, x0){
-    SubWin(height, width, y0, x0);
+PlayMenu::PlayMenu(MainWin *mw) : SubWin(mw, 0){
+    SubWin(mw, 0);
 }
 
 int PlayMenu::menu(){

@@ -1,10 +1,11 @@
 #include "Player.hpp"
 
-Player::Player(Map *map){
+Player::Player(Map *map, StatsWin *sw){
+    this->sw = sw;
     this->map = map;
     this->xMax = map->get_width();
     this->yMax = map->get_height();
-    this->xLoc = 0;
+    this->xLoc = 1;
     this->yLoc = yMax/2;
     this->ch = '@';
     this->leftChar = ' ';
@@ -73,4 +74,30 @@ int Player::getmv(){
 
 void Player::display(){
     mvwaddch(this->map->getWin(), this->yLoc, this->xLoc, this->ch);
+}
+
+void Player::decrease_lives(){
+    this->lives--;
+}
+
+void Player::increase_coins(int coins){
+    this->coins += coins;
+}
+
+bool Player::decrease_coins(int coins){
+    bool decreased = false;
+
+    if(this->coins >= coins){
+        this->coins -= coins;
+    }
+
+    return decreased;
+}
+
+int Player::get_coins(){
+    return this->coins;
+}
+
+int Player::get_lives(){
+    return this->lives;
 }

@@ -1,7 +1,6 @@
-#include "classes/MainWin.hpp"
 #include "classes/PlayMenu.hpp"
-#include "classes/Map.hpp"
-#include "classes/Player.hpp"
+#include "classes/Game.hpp"
+#include "classes/StatsWin.hpp"
 
 using namespace std;
 
@@ -21,18 +20,22 @@ int main(){
     MainWin *main_win = new MainWin();
     main_win->draw_empty();
 
-    Map *map = new Map(main_win->get_height(), main_win->get_width(), main_win->get_beg_y(), main_win->get_beg_x());
-    WINDOW *win = map->getWin();
+    Map *map = new Map(main_win);
+    
+    WINDOW *map_win = map->getWin();
 
     int n = rand() % 6 + 1;
 
     map->draw_n_map(n);
+    StatsWin *sw = new StatsWin(main_win);
+    Player *p = new Player(map, sw);
 
-    Player *p = new Player(map);
+    //sw->display(p->get_lives(), p->get_coins());
+    WINDOW *w = newwin(1,2,2,1);
 
     do{
         p->display();
-        wrefresh(win);
+        wrefresh(map_win);
     }while(p->getmv() != 'x');
 
     getch();

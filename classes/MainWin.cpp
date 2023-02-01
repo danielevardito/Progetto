@@ -11,6 +11,10 @@ MainWin::MainWin(){
     this->win = newwin(height, width, y0, x0);
 }
 
+WINDOW* MainWin::getWin(){
+    return this->win;
+}
+
 int MainWin::get_beg_x(){
     return getbegx(this->win);
 }
@@ -28,7 +32,6 @@ int MainWin::get_width(){
 }
 
 void MainWin::draw_empty(){
-    box(this->win, 0, 0);
     refresh();
     wrefresh(this->win);
 }
