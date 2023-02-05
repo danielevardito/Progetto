@@ -8,6 +8,11 @@
 
 using namespace std;
 
+struct yx{
+  int y;
+  int x;
+};
+
 class Player{
     protected:
       //punto della mappa in cui si trova il player
@@ -54,6 +59,8 @@ class Player{
       int get_lives();
       int get_weapon();
       int get_w_speed();
+      int get_yLoc();
+      int get_xLoc();
 
       void shoot_1();
       void shoot_2();

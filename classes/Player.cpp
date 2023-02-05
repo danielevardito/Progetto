@@ -80,6 +80,10 @@ int Player::getmv(){
           this->last_pressed_x = KEY_RIGHT;
           break;
         
+        case int('s'):
+          this->shoot();
+          break;
+        
         default:
           break;
     }
@@ -294,4 +298,13 @@ void Player::shoot(){
     if(weapon == 1) shoot_1();
     else if(weapon == 2) shoot_2();
     else if(weapon == 3) shoot_3();
+    usleep(200000);
+}
+
+int Player::get_xLoc(){
+    return this->xLoc;
+}
+
+int Player::get_yLoc(){
+    return this->yLoc;
 }
