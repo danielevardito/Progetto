@@ -2,10 +2,13 @@
 
 using namespace std;
 
-PlayMenu::PlayMenu(MainWin *mw) : SubWin(mw, 0){
+PlayMenu::PlayMenu(MainWin *mw) : SubWin(mw, 2){
     SubWin(mw, 0);
 }
-
+/*
+Visualizza il menu, al valore di ritorno 0 è associato play, quindi comincerà una partita, 
+al valore di ritorno 1 è associato quit, quindi il gioco terminerà.
+*/
 int PlayMenu::menu(){
     //setta la variabile che sarà ritornata a -1 per indicare che non c'è stata ancora nessuna scelta
     //da parte dell'utente
@@ -18,7 +21,7 @@ int PlayMenu::menu(){
     //setto a 0 il button, quindi evidenzio PLAY. Button contiene l'indice del bottone correntemente
     //evidenziato
     int button = 0; 
-    mvwchgat(this->win, this->get_height()/2-1, this->get_width()/2-2, 4, A_STANDOUT, 1, NULL);
+    mvwchgat(this->win, this->get_height()/2-1, this->get_width()/2-2, 1, A_STANDOUT, 1, NULL);
 
     keypad(this->win, true);
     char c;
@@ -27,19 +30,19 @@ int PlayMenu::menu(){
         if((c == (char)KEY_UP) || (c == (char)KEY_DOWN)) {
             //se era evidenziato PLAY evidenzia QUIT, nel caso contrario viceversa
             if(button == 0){
-                mvwchgat(this->win, this->get_height()/2-1, this->get_width()/2-2, 4, A_NORMAL, 1, NULL);
-                mvwchgat(this->win, this->get_height()/2+1, this->get_width()/2-2, 4, A_STANDOUT, 1, NULL);
+                mvwchgat(this->win, this->get_height()/2-1, this->get_width()/2-2, 1, A_NORMAL, 1, NULL);
+                mvwchgat(this->win, this->get_height()/2+1, this->get_width()/2-2, 1, A_STANDOUT, 1, NULL);
                 button = 1;
             }
             else{
-                mvwchgat(this->win, this->get_height()/2-1, this->get_width()/2-2, 4, A_STANDOUT, 1, NULL);
-                mvwchgat(this->win, this->get_height()/2+1, this->get_width()/2-2, 4, A_NORMAL, 1, NULL);
+                mvwchgat(this->win, this->get_height()/2-1, this->get_width()/2-2, 1, A_STANDOUT, 1, NULL);
+                mvwchgat(this->win, this->get_height()/2+1, this->get_width()/2-2, 1, A_NORMAL, 1, NULL);
                 button = 0;
             }
         }   
         //nel caso in cui non venga premuta una freccetta, assgna a is_pressed l'indice della voce del menu
         //evidenziata correntemente
-        else{
+        else if(int(wgetch(this->win)) == ' '){
             this->is_pressed = button;
         }
     }

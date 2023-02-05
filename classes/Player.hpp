@@ -10,24 +10,32 @@ using namespace std;
 
 class Player{
     protected:
+      //punto della mappa in cui si trova il player
       int xLoc;
       int yLoc;
       int xMax;
       int yMax;
+      //carattere che rappresenta il player
       char ch;
       char leftChar;
+      //mappa in cui si gioca attualmente e finestra delle statistiche
       Map *map;
       StatsWin *sw;
+      //arma che sta usando il player correntemente
       int weapon;
+      //velocità dell'arma che sta usando il player correntemente
+      int w_speed;
+      //variabile che serve a decidere da che parte sparare
       int last_pressed_x = 0;
 
+      //vite e soldi del player
       int lives = 5;
       int coins = 0;
 
     public:
-      Player(MainWin *mw, Map *map, int weapon);
+      Player(MainWin *mw, Map *map);
 
-      void new_game(Map *map, int weapon);
+      void new_game(Map *map, int weapon, int w_speed);
       StatsWin* get_stats_win();
 
       void mvup();
@@ -44,10 +52,13 @@ class Player{
 
       int get_coins();
       int get_lives();
+      int get_weapon();
+      int get_w_speed();
 
-      void shoot_1(int speed);
-      void shoot_2(int speed);
-      void shoot_3(int speed);
+      void shoot_1();
+      void shoot_2();
+      void shoot_3();
+      void shoot();
 };
 
 #endif

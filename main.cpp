@@ -20,17 +20,23 @@ int main(){
     MainWin *main_win = new MainWin();
     main_win->draw_empty();
 
-    Map *map = new Map(main_win);
-    Player *p = new Player(main_win, map, 0);
-    Game *g = new Game(main_win, map, p);
+    PlayMenu *pm = new PlayMenu(main_win);
 
-    bool won = g->play_game();
+    int play = pm->menu();
 
-    map = new Map(main_win);
-    p->new_game(map, 0);
-    g = new Game(main_win, map, p);
+    if(play == 0){
+        Map *map = new Map(main_win);
+        Player *p = new Player(main_win, map);
+        Game *g = new Game(main_win, map, p);
 
-    won = g->play_game();
+        bool won = g->play_game();
+
+        map = new Map(main_win);
+        p->new_game(map, 2, 3);
+        g = new Game(main_win, map, p);
+
+        won = g->play_game();
+    }
 
     endwin();
 

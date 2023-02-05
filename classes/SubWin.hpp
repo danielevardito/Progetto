@@ -15,7 +15,7 @@ class SubWin{
       WINDOW *win;
       bool large;
     public:
-      SubWin(MainWin *mw, bool wide);
+      SubWin(MainWin *mw, int wide);
 
       int get_beg_x();
       int get_beg_y();

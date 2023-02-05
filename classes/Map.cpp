@@ -1,6 +1,6 @@
 #include "Map.hpp"
 
-Map::Map(MainWin *mw) : SubWin(mw, true){
+Map::Map(MainWin *mw) : SubWin(mw, 1){
     srand (time(NULL));
     SubWin(mw, true);
 }
@@ -259,6 +259,9 @@ void Map::draw_n_map(int n){
 
 }
 
+/*
+Verifica, date le coordinate, se il carattere a x y è vuoto
+*/
 bool Map::is_blank(int y, int x){
     if(mvwinch(this->win, y, x) == ' ') return true;
     else return false;

@@ -7,7 +7,7 @@
 class StatsWin : public SubWin{
     public:
       StatsWin(MainWin *mw);
-      void display(int l, int c);
+      void display(int l, int c, int w, int s_w);
 };
 
 #endif

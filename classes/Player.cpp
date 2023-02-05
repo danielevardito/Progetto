@@ -1,6 +1,10 @@
 #include "Player.hpp"
 
-Player::Player(MainWin *mw, Map *map, int weapon){
+/*
+Costrutture di Player: viene settata la mappa del giocatore, i parametri di posizione, il carattere
+rappresentante il player, e arma e velocità di arma base.
+*/
+Player::Player(MainWin *mw, Map *map){
     this->map = map;
     this->sw = new StatsWin(mw);
     this->xMax = map->get_width();
@@ -10,11 +14,15 @@ Player::Player(MainWin *mw, Map *map, int weapon){
     this->ch = '@';
     this->leftChar = ' ';
 
-    this->weapon = weapon;
+    this->weapon = 1;
+    this->w_speed = 1;
 
     keypad(map->getWin(), true);
 }
 
+/*
+Le quattro funzioni modificano la posizione del player, che sarà visualizzata nel metodo display
+*/
 void Player::mvup(){
     if(map->is_blank(yLoc-1, xLoc)){
         mvwaddch(this->map->getWin(), this->yLoc, this->xLoc, this->leftChar);
@@ -47,6 +55,9 @@ void Player::mvright(){
     }
 }
 
+/*
+Se viene premuta una freccetta, il Player si muoverà di conseguenza
+*/
 int Player::getmv(){
     int choice = wgetch(this->map->getWin());
 
@@ -76,18 +87,30 @@ int Player::getmv(){
     return choice;
 }
 
+/*
+fa visualizzare il Player nella mappa, è usato generalemente dopo un getmv
+*/
 void Player::display(){
     mvwaddch(this->map->getWin(), this->yLoc, this->xLoc, this->ch);
 }
 
+/*
+Diminuisce le vite del Player, avviene quando viene colpito
+*/
 void Player::decrease_lives(){
     this->lives--;
 }
 
+/*
+Aumenta i soldi del player in base al parametro
+*/
 void Player::increase_coins(int coins){
     this->coins += coins;
 }
 
+/*
+Diminuisce i soldi in base al parametro
+*/
 bool Player::decrease_coins(int coins){
     bool decreased = false;
 
@@ -106,8 +129,21 @@ int Player::get_lives(){
     return this->lives;
 }
 
-void Player::new_game(Map *map, int weapon){
+int Player::get_weapon(){
+    return this->weapon;
+}
+
+int Player::get_w_speed(){
+    return this->w_speed;
+}
+
+/*
+Prepara il player alla nuovo livello, con le armi prese dal market
+*/
+void Player::new_game(Map *map, int weapon, int w_speed){
     this->map = map;
+    this->weapon = weapon;
+    this->w_speed = w_speed;
     this->xMax = map->get_width();
     this->yMax = map->get_height();
     keypad(map->getWin(), true);
@@ -120,10 +156,15 @@ StatsWin* Player::get_stats_win(){
     return this->sw;
 }
 
-void Player::shoot_1(int speed){
-    if(speed == 1) speed = 60;
-    else if(speed == 2) speed = 30;
-    else if(speed == 3)  speed = 15;
+/*
+Spara un proiettile che non può perforare la mappa, viene sparato a destra o sinistra in base
+all'ultimo movimento del player.
+*/
+void Player::shoot_1(){
+    int speed;
+    if(w_speed == 1) speed = 60;
+    else if(w_speed == 2) speed = 30;
+    else if(w_speed == 3)  speed = 15;
     if(this->last_pressed_x == KEY_RIGHT || this->last_pressed_x == 0){
         int xS = this->xLoc+1;
 
@@ -158,10 +199,15 @@ void Player::shoot_1(int speed){
     }
 }
 
-void Player::shoot_2(int speed){
-    if(speed == 1) speed = 70;
-    else if(speed == 2) speed = 35;
-    else if(speed == 3)  speed = 25;
+/*
+Spara un proiettile in grado di rompere un solo muro presente nella mappa, al prossimo si disintegra
+viene sparato a destra o sinistra in base all'ultimo movimento del player
+*/
+void Player::shoot_2(){
+    int speed;
+    if(w_speed == 1) speed = 70;
+    else if(w_speed == 2) speed = 35;
+    else if(w_speed == 3)  speed = 25;
     if(this->last_pressed_x == KEY_RIGHT || this->last_pressed_x == 0){
         int xS = this->xLoc+1;
         int breaks = 0;
@@ -198,10 +244,15 @@ void Player::shoot_2(int speed){
     }
 }
 
-void Player::shoot_3(int speed){
-    if(speed == 1) speed = 85;
-    else if(speed == 2) speed = 70;
-    else if(speed == 3)  speed = 50;
+/*
+Proiettile in grado di rompere ogni muro della mappa eccetto i limiti.
+Viene sparato a destra o sinistra in base all'ultimo movimento del player
+*/
+void Player::shoot_3(){
+    int speed;
+    if(w_speed == 1) speed = 85;
+    else if(w_speed == 2) speed = 70;
+    else if(w_speed == 3)  speed = 50;
 
     if(this->last_pressed_x == KEY_RIGHT || this->last_pressed_x == 0){
         int xS = this->xLoc+1;
@@ -234,4 +285,13 @@ void Player::shoot_3(int speed){
 
         timeout(-1);
     }
+}
+
+/*
+spara in base all'arma del player
+*/
+void Player::shoot(){
+    if(weapon == 1) shoot_1();
+    else if(weapon == 2) shoot_2();
+    else if(weapon == 3) shoot_3();
 }
