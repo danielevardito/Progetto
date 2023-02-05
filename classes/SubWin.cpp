@@ -5,7 +5,7 @@ SubWin::SubWin(MainWin *mw, bool wide){
       this->win = newwin(mw->get_height()-3, mw->get_width(), mw->get_beg_y()+2, mw->get_beg_x());
     else
         this->win = newwin(3, mw->get_width(), mw->get_beg_y(), mw->get_beg_x());
-    box(this->win, 0, 0);
+    //box(this->win, 0, 0);
       
 }
 

@@ -21,24 +21,16 @@ int main(){
     main_win->draw_empty();
 
     Map *map = new Map(main_win);
-    
-    WINDOW *map_win = map->getWin();
+    Player *p = new Player(main_win, map, 0);
+    Game *g = new Game(main_win, map, p);
 
-    int n = rand() % 6 + 1;
+    bool won = g->play_game();
 
-    map->draw_n_map(n);
-    StatsWin *sw = new StatsWin(main_win);
-    Player *p = new Player(map, sw);
+    map = new Map(main_win);
+    p->new_game(map, 0);
+    g = new Game(main_win, map, p);
 
-    //sw->display(p->get_lives(), p->get_coins());
-    WINDOW *w = newwin(1,2,2,1);
-
-    do{
-        p->display();
-        wrefresh(map_win);
-    }while(p->getmv() != 'x');
-
-    getch();
+    won = g->play_game();
 
     endwin();
 
