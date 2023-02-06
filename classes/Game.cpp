@@ -106,6 +106,7 @@ Game::Game(MainWin *mw, Map *map, Player *p){
                 y++;
             }
         }
+
     }
     
     int n = rand()%6+1;
@@ -116,7 +117,20 @@ Game::Game(MainWin *mw, Map *map, Player *p){
     for(int i = 0; i < nEnemies; i++){
         enemies[i]->display();
     }
+
+    int j = 10;
+    for(int i = 0; i < nEnemies; i++){
+        intervals[i] = j;
+        j += 3;
+    }
+
     p->display();
+}
+
+bool Game::all_dead(int i = 0){
+    if(i == nEnemies) return true;
+    if(enemies[i]->dead()) return true && all_dead(i+1);
+    else return false;
 }
 
 /*
@@ -129,42 +143,51 @@ int Game::play_game(){
 
     int i = 0;
     while(won == 2){
-        char c = this->p->getmv();
-        if(c == 'x'){
+        if(this->all_dead()){
+            won = 1;
+        }
+        else{
+            char c = this->p->getmv();
+            if(c == 'x'){
             p->decrease_lives();
             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
-        } 
-        
-        if(i % 10 == 0){
-            p->display();
-            enemies[0]->mv_1();
-            if(i % 30 == 0){
-                yx c = enemies[0]->shoot_1();
-                if(c.y == p->get_yLoc() && c.x == p->get_xLoc()){
-                    p->decrease_lives();
-                    sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
+            } 
+            for(int j = 0; j < this->nEnemies; j++){
+                if(!enemies[j]->dead()){
+                    if(i % intervals[j] == 0){
+                        p->display();
+                        enemies[j]->mv();
+                    }
+                    int n = rand()% 15 + intervals[j]*5;
+                    if(i % n == 0){
+                        yx c = enemies[j]->shoot();
+                        if(c.y == p->get_yLoc() && c.x == p->get_xLoc()){
+                            p->decrease_lives();
+                            sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
+                        }
+                    }
+                }
+                
+            }
+
+            if(c == 's'){
+                yx cP = p->shoot();
+                for(int j = 0; j < nEnemies; j++){
+                    if(cP.y == enemies[j]->get_yLoc() && cP.x == enemies[j]->get_xLoc()){
+                        enemies[j]->decrease_lives();
+                    }
                 }
             }
-        }
-        if(c == 's'){
-            yx cP = p->shoot();
-            if(cP.y == enemies[0]->get_yLoc() && cP.x == enemies[0]->get_xLoc()){
-                enemies[0]->decrease_lives();
+            if(p->get_lives() == 0){
+                won = 0;
+                sleep(2);
             }
+            else if(c == 'w'){
+                won = 1;
+            }
+            else p->display();
+            i++;
         }
-        if(p->get_lives() == 0){
-            won = 0;
-            sleep(2);
-        }
-        else if(enemies[i]->get_lives() <= 0){
-            won = 1;
-            sleep(2);
-        }
-        else if(c == 'w'){
-            won = 1;
-        }
-        else p->display();
-        i++;
     }
 
     return won;

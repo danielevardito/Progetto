@@ -27,6 +27,16 @@ class Enemy{
       yx shoot_1();
       void mv_1();
 
+      void mvup_2(int nY);
+      void mvdown_2(int nY);
+      void mvleft_2(int nX);
+      void mvright_2(int nX);
+      yx shoot_2();
+      void mv_2();
+
+      yx shoot();
+      void mv();
+
       int get_yLoc();
       int get_xLoc();
       int get_lives();

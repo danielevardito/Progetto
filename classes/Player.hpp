@@ -66,6 +66,8 @@ class Player{
       yx shoot_2();
       yx shoot_3();
       yx shoot();
+
+      bool hitted(int y, int x);
 };
 
 #endif

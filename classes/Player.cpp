@@ -183,7 +183,7 @@ yx Player::shoot_1(){
         timeout(-1);
 
         c.y = yLoc;
-        c.x = xS+1;
+        c.x = xS;
     }
     else if(this->last_pressed_x == KEY_LEFT){
         int xS = this->xLoc-1;
@@ -201,7 +201,7 @@ yx Player::shoot_1(){
 
         timeout(-1);
         c.y = yLoc;
-        c.x = xS-1;
+        c.x = xS;
     }
     return c;
 }
@@ -220,7 +220,7 @@ yx Player::shoot_2(){
         int xS = this->xLoc+1;
         int breaks = 0;
         timeout(speed);
-        while(breaks <= 1 && xS < this->map->get_width()-1){
+        while(breaks <= 1 && xS < this->map->get_width()-1 && !hitted(yLoc, xS)){
             getch();
             if(xS != xLoc+1) mvwaddch(this->map->getWin(), this->yLoc, xS-1, ' ');
             mvwaddch(this->map->getWin(), this->yLoc, xS, '|');
@@ -234,13 +234,13 @@ yx Player::shoot_2(){
         timeout(-1);
 
         c.y = yLoc;
-        c.x = xS+1;
+        c.x = xS;
     }
     else if(this->last_pressed_x == KEY_LEFT){
         int xS = this->xLoc-1;
         int breaks = 0;
         timeout(speed);
-        while(breaks <= 1 && xS > 0){
+        while(breaks <= 1 && xS > 0 && !hitted(yLoc, xS)){
             getch();
             if(xS != xLoc-1) mvwaddch(this->map->getWin(), this->yLoc, xS+1, ' ');
             mvwaddch(this->map->getWin(), this->yLoc, xS, '|');
@@ -254,7 +254,7 @@ yx Player::shoot_2(){
         timeout(-1);
 
         c.y = yLoc;
-        c.x = xS-1;
+        c.x = xS;
     }
 
     return c;
@@ -275,7 +275,7 @@ yx Player::shoot_3(){
     if(this->last_pressed_x == KEY_RIGHT || this->last_pressed_x == 0){
         int xS = this->xLoc+1;
         timeout(speed);
-        while(xS < this->map->get_width()-1){
+        while(xS < this->map->get_width()-1 && !hitted(yLoc, xS)){
             getch();
             if(xS != xLoc+1) mvwaddch(this->map->getWin(), this->yLoc, xS-1, ' ');
             mvwaddch(this->map->getWin(), this->yLoc, xS, 'Z');
@@ -288,13 +288,13 @@ yx Player::shoot_3(){
         timeout(-1);
 
         c.y = yLoc;
-        c.x = xS+1;
+        c.x = xS;
     }
     else if(this->last_pressed_x == KEY_LEFT){
         int xS = this->xLoc-1;
         int breaks = 0;
         timeout(speed);
-        while(xS > 0){
+        while(xS > 0 && !hitted(yLoc, xS)){
             getch();
             if(xS != xLoc-1) mvwaddch(this->map->getWin(), this->yLoc, xS+1, ' ');
             mvwaddch(this->map->getWin(), this->yLoc, xS, 'Z');
@@ -307,7 +307,7 @@ yx Player::shoot_3(){
         timeout(-1);
 
         c.y = yLoc;
-        c.x = xS-1;
+        c.x = xS;
     }
 
     return c;
@@ -321,7 +321,7 @@ yx Player::shoot(){
     if(weapon == 1) c = shoot_1();
     else if(weapon == 2) c = shoot_2();
     else if(weapon == 3) c = shoot_3();
-    usleep(200000);
+    //usleep(200000);
 
     return c;
 }
@@ -332,4 +332,12 @@ int Player::get_xLoc(){
 
 int Player::get_yLoc(){
     return this->yLoc;
+}
+
+bool Player::hitted(int y, int x){
+    if(mvwinch(map->getWin(), y, x) == '&') return true;
+    else if(mvwinch(map->getWin(), y, x) == '#') return true;
+    else if(mvwinch(map->getWin(), y, x) == '?') return true;
+    else if(mvwinch(map->getWin(), y, x) == '!') return true;
+    else return false;
 }

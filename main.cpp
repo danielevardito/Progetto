@@ -33,7 +33,7 @@ int main(){
 
         if(won == 1){
             map = new Map(main_win);
-            p->new_game(map, 2, 3);
+            p->new_game(map, 2, 1);
             g = new Game(main_win, map, p);
 
             won = g->play_game();
