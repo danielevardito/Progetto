@@ -23,7 +23,7 @@ class Game{
     public:
       Game(MainWin *mw, Map *map, Player *p);
       //Funzione che fa giocare una partita e ne restituisce l'esito
-      bool play_game();
+      int play_game();
       int enemies_size();
 };
 

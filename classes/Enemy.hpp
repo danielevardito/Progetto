@@ -15,6 +15,7 @@ class Enemy{
       char leftChar;
       int weapon;
       int type;
+      int lives;
       int last_move_x = 0;
     public:
       Enemy(Map *map, Player *p, int type, int yLoc);
@@ -25,6 +26,14 @@ class Enemy{
       void mvright_1(int nX);
       yx shoot_1();
       void mv_1();
+
+      int get_yLoc();
+      int get_xLoc();
+      int get_lives();
+
+      void decrease_lives();
+      bool dead();
+
 };
 
 #endif

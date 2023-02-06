@@ -62,10 +62,10 @@ class Player{
       int get_yLoc();
       int get_xLoc();
 
-      void shoot_1();
-      void shoot_2();
-      void shoot_3();
-      void shoot();
+      yx shoot_1();
+      yx shoot_2();
+      yx shoot_3();
+      yx shoot();
 };
 
 #endif

@@ -29,13 +29,16 @@ int main(){
         Player *p = new Player(main_win, map);
         Game *g = new Game(main_win, map, p);
 
-        bool won = g->play_game();
+        int won = g->play_game();
 
-        map = new Map(main_win);
-        p->new_game(map, 2, 3);
-        g = new Game(main_win, map, p);
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 2, 3);
+            g = new Game(main_win, map, p);
 
-        won = g->play_game();
+            won = g->play_game();
+        }
+        
     }
 
     endwin();

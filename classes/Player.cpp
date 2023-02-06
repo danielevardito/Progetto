@@ -80,10 +80,6 @@ int Player::getmv(){
           this->last_pressed_x = KEY_RIGHT;
           break;
         
-        case int('s'):
-          this->shoot();
-          break;
-        
         default:
           break;
     }
@@ -164,8 +160,9 @@ StatsWin* Player::get_stats_win(){
 Spara un proiettile che non può perforare la mappa, viene sparato a destra o sinistra in base
 all'ultimo movimento del player.
 */
-void Player::shoot_1(){
+yx Player::shoot_1(){
     int speed;
+    yx c;
     if(w_speed == 1) speed = 60;
     else if(w_speed == 2) speed = 30;
     else if(w_speed == 3)  speed = 15;
@@ -182,8 +179,11 @@ void Player::shoot_1(){
         }
         mvwaddch(this->map->getWin(), this->yLoc, xS-1, ' ');
         wrefresh(this->map->getWin());
-
+        
         timeout(-1);
+
+        c.y = yLoc;
+        c.x = xS+1;
     }
     else if(this->last_pressed_x == KEY_LEFT){
         int xS = this->xLoc-1;
@@ -200,15 +200,19 @@ void Player::shoot_1(){
         wrefresh(this->map->getWin());
 
         timeout(-1);
+        c.y = yLoc;
+        c.x = xS-1;
     }
+    return c;
 }
 
 /*
 Spara un proiettile in grado di rompere un solo muro presente nella mappa, al prossimo si disintegra
 viene sparato a destra o sinistra in base all'ultimo movimento del player
 */
-void Player::shoot_2(){
+yx Player::shoot_2(){
     int speed;
+    yx c;
     if(w_speed == 1) speed = 70;
     else if(w_speed == 2) speed = 35;
     else if(w_speed == 3)  speed = 25;
@@ -228,6 +232,9 @@ void Player::shoot_2(){
         wrefresh(this->map->getWin());
 
         timeout(-1);
+
+        c.y = yLoc;
+        c.x = xS+1;
     }
     else if(this->last_pressed_x == KEY_LEFT){
         int xS = this->xLoc-1;
@@ -245,18 +252,25 @@ void Player::shoot_2(){
         wrefresh(this->map->getWin());
 
         timeout(-1);
+
+        c.y = yLoc;
+        c.x = xS-1;
     }
+
+    return c;
 }
 
 /*
 Proiettile in grado di rompere ogni muro della mappa eccetto i limiti.
 Viene sparato a destra o sinistra in base all'ultimo movimento del player
 */
-void Player::shoot_3(){
+yx Player::shoot_3(){
     int speed;
     if(w_speed == 1) speed = 85;
     else if(w_speed == 2) speed = 70;
     else if(w_speed == 3)  speed = 50;
+
+    yx c;
 
     if(this->last_pressed_x == KEY_RIGHT || this->last_pressed_x == 0){
         int xS = this->xLoc+1;
@@ -272,6 +286,9 @@ void Player::shoot_3(){
         wrefresh(this->map->getWin());
 
         timeout(-1);
+
+        c.y = yLoc;
+        c.x = xS+1;
     }
     else if(this->last_pressed_x == KEY_LEFT){
         int xS = this->xLoc-1;
@@ -288,17 +305,25 @@ void Player::shoot_3(){
         wrefresh(this->map->getWin());
 
         timeout(-1);
+
+        c.y = yLoc;
+        c.x = xS-1;
     }
+
+    return c;
 }
 
 /*
 spara in base all'arma del player
 */
-void Player::shoot(){
-    if(weapon == 1) shoot_1();
-    else if(weapon == 2) shoot_2();
-    else if(weapon == 3) shoot_3();
+yx Player::shoot(){
+    yx c;
+    if(weapon == 1) c = shoot_1();
+    else if(weapon == 2) c = shoot_2();
+    else if(weapon == 3) c = shoot_3();
     usleep(200000);
+
+    return c;
 }
 
 int Player::get_xLoc(){

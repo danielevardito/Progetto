@@ -6,10 +6,22 @@ Enemy::Enemy(Map *map, Player *p, int type, int yLoc){
     this->yLoc = yLoc;
     this->p = p;
     this->xLoc = map->get_width()-2;
-    if(type == 1) this->ch = '&';
-    else if(type == 2) this->ch = '#';
-    else if(type == 3) this->ch = '?';
-    else if(type == 4) this->ch = '!';
+    if(type == 1){
+        this->ch = '&';
+        lives = 2;
+    } 
+    else if(type == 2){
+        this->ch = '#';
+        lives = 2;
+    } 
+    else if(type == 3){
+        this->ch = '?';
+        lives = 3;
+    } 
+    else if(type == 4){
+        this->ch = '!';
+        lives = 5;
+    } 
 }
 
 void Enemy::display(){
@@ -88,3 +100,27 @@ yx Enemy::shoot_1(){
 
     return c;
 }
+
+int Enemy::get_xLoc(){
+    return this->xLoc;
+}
+
+int Enemy::get_yLoc(){
+    return this->yLoc;
+}
+
+void Enemy::decrease_lives(){
+    lives--;
+    if(lives <= 0) mvaddch(yLoc, xLoc, ' ');
+}
+
+bool Enemy::dead(){
+    if(lives <= 0) return true;
+    else return false;
+}
+
+int Enemy::get_lives(){
+    return this->lives;
+}
+
+
