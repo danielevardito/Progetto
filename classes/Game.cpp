@@ -118,10 +118,10 @@ Game::Game(MainWin *mw, Map *map, Player *p){
         enemies[i]->display();
     }
 
-    int j = 10;
+    int j = 25;
     for(int i = 0; i < nEnemies; i++){
         intervals[i] = j;
-        j += 3;
+        j *= 2.2;
     }
 
     p->display();
@@ -156,11 +156,17 @@ int Game::play_game(){
                 if(!enemies[j]->dead()){
                     if(i % intervals[j] == 0){
                         p->display();
+                        keypad(map->getWin(), false);
                         enemies[j]->mv();
+                        keypad(map->getWin(), true);
+
+                        intervals[j]*=1.4;
                     }
-                    int n = rand()% 15 + intervals[j]*5;
+                    int n = intervals[j]*0.8;
                     if(i % n == 0){
+                        keypad(map->getWin(), false);
                         yx c = enemies[j]->shoot();
+                        keypad(map->getWin(), true);
                         if(c.y == p->get_yLoc() && c.x == p->get_xLoc()){
                             p->decrease_lives();
                             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());

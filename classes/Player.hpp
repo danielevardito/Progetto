@@ -37,16 +37,20 @@ class Player{
       int lives = 5;
       int coins = 0;
 
+      void mvup();
+      void mvdown();
+      void mvleft();
+      void mvright();
+
+      yx shoot_1();
+      yx shoot_2();
+      yx shoot_3();
+
     public:
       Player(MainWin *mw, Map *map);
 
       void new_game(Map *map, int weapon, int w_speed);
       StatsWin* get_stats_win();
-
-      void mvup();
-      void mvdown();
-      void mvleft();
-      void mvright();
 
       int getmv();
       void display();
@@ -62,9 +66,6 @@ class Player{
       int get_yLoc();
       int get_xLoc();
 
-      yx shoot_1();
-      yx shoot_2();
-      yx shoot_3();
       yx shoot();
 
       bool hitted(int y, int x);
