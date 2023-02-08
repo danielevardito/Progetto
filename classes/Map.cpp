@@ -227,6 +227,33 @@ void Map::draw_map5(){
     wrefresh(win);
 }
 
+void Map::draw_market(int weapon){
+    char w, ws;
+
+    if(weapon == 1) w = '|';
+    else if(weapon == 2) w = 'Z';
+    else if(weapon == 3) w = 'X';
+
+    this->draw_empty();
+    int height4 = get_height()/4;
+
+    mvwaddch(win, get_beg_y()+2, get_width()/2, w);
+    if(weapon == 1) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "7 COINS: Arma che perfora un muro");
+    else if(weapon == 1) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "7 COINS: Arma che perfora tutti i muri");
+    mvwaddch(win, height4, get_width()/2, '+');
+    mvwaddch(win, height4, get_width()/2+1, w);
+    mvwprintw(win, height4, get_width()/2+3, "2 COINS: Aumenta la velocità dell'arma");
+    mvwaddch(win, height4*2, get_width()/2, '+');
+    mvwaddch(win, height4*2, get_width()/2+1, 'V');
+    mvwprintw(win, height4*2, get_width()/2+3, "2 COINS: AUMENTA LA VITA");
+    mvwprintw(win, get_height()-2, get_width()/2, "] exit");
+
+    box(this->win, 0, 0);
+
+    wrefresh(win);
+
+}
+
 /*
 Dato un numero, disegna la mappa corrispondente. 
 */

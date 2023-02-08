@@ -18,6 +18,8 @@ class Map : public SubWin{
       void draw_map5();
       void draw_n_map(int n);
 
+      void draw_market(int weapon);
+
       bool is_blank(int y, int x);
       WINDOW* getWin();
 };

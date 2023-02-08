@@ -338,9 +338,27 @@ bool Player::hitted(int y, int x){
     else if(mvwinch(map->getWin(), y, x) == '#') return true;
     else if(mvwinch(map->getWin(), y, x) == '?') return true;
     else if(mvwinch(map->getWin(), y, x) == '!') return true;
+    else if(mvwinch(map->getWin(), y, x) == '+') return true;
+    else if(mvwinch(map->getWin(), y, x) == '|') return true;
+    else if(mvwinch(map->getWin(), y, x) == 'V') return true;
+    else if(mvwinch(map->getWin(), y, x) == '>') return true;
+    else if(mvwinch(map->getWin(), y, x) == 'Z') return true;
+    else if(mvwinch(map->getWin(), y, x) == ']') return true;
     else return false;
 }
 
 void Player::reset_lives(){
     this->lives = 0;
+}
+
+void Player::increase_weapon(){
+    if(weapon < 3) weapon++;
+}
+
+void Player::increase_w_speed(){
+    if(weapon < 3) w_speed++;
+}
+
+void Player::increase_lives(){
+    lives++;
 }

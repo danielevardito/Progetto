@@ -50,12 +50,15 @@ class Player{
       Player(MainWin *mw, Map *map);
 
       void new_game(Map *map, int weapon, int w_speed);
+      void increase_weapon();
+      void increase_w_speed();
       StatsWin* get_stats_win();
 
       int getmv();
       void display();
 
       void decrease_lives();
+      void increase_lives();
       void reset_lives();
       void increase_coins(int coins);
       bool decrease_coins(int coins);
