@@ -56,6 +56,7 @@ class Player{
       void display();
 
       void decrease_lives();
+      void reset_lives();
       void increase_coins(int coins);
       bool decrease_coins(int coins);
 

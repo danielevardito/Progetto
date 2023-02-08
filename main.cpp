@@ -33,7 +33,63 @@ int main(){
 
         if(won == 1){
             map = new Map(main_win);
+            p->new_game(map, 1, 2);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 1, 3);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
             p->new_game(map, 2, 1);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 2, 2);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 2, 3);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 3, 1);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 3, 2);
+            g = new Game(main_win, map, p);
+
+            won = g->play_game();
+        }
+
+        if(won == 1){
+            map = new Map(main_win);
+            p->new_game(map, 3, 3);
             g = new Game(main_win, map, p);
 
             won = g->play_game();

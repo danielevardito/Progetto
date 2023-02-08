@@ -55,17 +55,14 @@ Game::Game(MainWin *mw, Map *map, Player *p){
                 y++;
             }
             enemies[2] = new Enemy(map, p, 3, y);
+            enemies[3] = new Enemy(map, p, 3, y);
         }
 
         if(p->get_w_speed() == 3){
             int y = map->get_height()/2-2;
 
             nEnemies = 5;
-            for(int i = 0; i < 3; i++){
-                enemies[i] = new Enemy(map, p, 2, y);
-                y++;
-            }
-            for(int i = 2; i < 4; i++){
+            for(int i = 0; i < 5; i++){
                 enemies[i] = new Enemy(map, p, 3, y);
                 y++;
             }
@@ -87,12 +84,12 @@ Game::Game(MainWin *mw, Map *map, Player *p){
             nEnemies = 8;
             int y = map->get_height()/2-4;
             for(int i = 0; i < 5; i++){
-                enemies[i] = new Enemy(map, p, 4, y);
+                enemies[i] = new Enemy(map, p, 3, y);
                 y++;
             }
 
             for(int i = 5; i < 8; i++){
-                enemies[i] = new Enemy(map, p, 3, y);
+                enemies[i] = new Enemy(map, p, 4, y);
                 y++;
             }
         }
@@ -121,7 +118,7 @@ Game::Game(MainWin *mw, Map *map, Player *p){
     int j = 25;
     for(int i = 0; i < nEnemies; i++){
         intervals[i] = j;
-        j *= 2.2;
+        j *= 1.9;
     }
 
     p->display();
@@ -142,9 +139,14 @@ int Game::play_game(){
     int won = 2;
 
     int i = 0;
+    double interv = 2;
     while(won == 2){
         if(this->all_dead()){
             won = 1;
+        }
+        else if(p->get_lives() == 0){
+            won = 0;
+            sleep(2);
         }
         else{
             char c = this->p->getmv();
@@ -152,26 +154,31 @@ int Game::play_game(){
             p->decrease_lives();
             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
             } 
-            for(int j = 0; j < this->nEnemies; j++){
+
+            p->display();
+            for(int j = 0; j < nEnemies; j++){
+                if(!enemies[j]->dead()) enemies[j]->display();
+            }
+            for(int j = 0; j < this->nEnemies && p->get_lives() != 0; j++){
                 if(!enemies[j]->dead()){
                     if(i % intervals[j] == 0){
                         p->display();
                         keypad(map->getWin(), false);
                         enemies[j]->mv();
-                        keypad(map->getWin(), true);
-
-                        intervals[j]*=1.4;
-                    }
-                    int n = intervals[j]*0.8;
-                    if(i % n == 0){
-                        keypad(map->getWin(), false);
                         yx c = enemies[j]->shoot();
-                        keypad(map->getWin(), true);
                         if(c.y == p->get_yLoc() && c.x == p->get_xLoc()){
-                            p->decrease_lives();
+                            if(enemies[j]->get_type() == 4) p->reset_lives();
+                            else p->decrease_lives();
                             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
                         }
+                        keypad(map->getWin(), true);
+
+                        if(interv >= 0.2){
+                            intervals[j]*=interv;
+                            interv-=0.1;
+                        }
                     }
+                        
                 }
                 
             }
@@ -184,14 +191,10 @@ int Game::play_game(){
                     }
                 }
             }
-            if(p->get_lives() == 0){
-                won = 0;
-                sleep(2);
-            }
-            else if(c == 'w'){
+            if(c == 'w'){
                 won = 1;
             }
-            else p->display();
+            p->display();
             i++;
         }
     }

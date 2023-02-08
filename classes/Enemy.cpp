@@ -134,7 +134,7 @@ void Enemy::mv_1(){
 }
 
 void Enemy::mvup_3(){
-    int distance = rand() % 3 + 3;
+    int distance = rand() % 2 + 2;
 
     if(p->get_yLoc()-distance > map->get_beg_y()+1){
         mvwaddch(map->getWin(), yLoc, xLoc, ' ');
@@ -147,7 +147,7 @@ void Enemy::mvup_3(){
 }
 
 void Enemy::mvdown_3(){
-    int distance = rand() % 3 + 3;
+    int distance = rand() % 2 + 2;
 
     if(p->get_yLoc()+distance < map->get_height()-1){
         mvwaddch(map->getWin(), yLoc, xLoc, ' ');
@@ -160,7 +160,7 @@ void Enemy::mvdown_3(){
 }
 
 void Enemy::mvleft_3(){
-    int distance = rand() % 3 + 3;
+    int distance = rand() % 2 + 2;
 
     if(p->get_xLoc()-distance > map->get_beg_x()+1){
         mvwaddch(map->getWin(), yLoc, xLoc, ' ');
@@ -173,7 +173,7 @@ void Enemy::mvleft_3(){
 }
 
 void Enemy::mvright_3(){
-    int distance = rand() % 3 + 3;
+    int distance = rand() % 2 + 2;
 
     if(p->get_xLoc()+distance < map->get_width()-1){
         mvwaddch(map->getWin(), yLoc, xLoc, ' ');
@@ -204,6 +204,14 @@ void Enemy::mv_3(){
     }
 }
 
+void Enemy::mv_4(){
+    srand(time(NULL));
+    int mv = rand()%2;
+    int nY = rand()% map->get_height()/4+1;
+    if(mv == 0) this->mvup_2(nY);
+    else if(mv == 1) this->mvdown_2(nY); 
+}
+
 yx Enemy::shoot_2(){
     int xL = this->xLoc-1;
 
@@ -225,22 +233,143 @@ yx Enemy::shoot_2(){
     return c;
 }
 
-yx Enemy::shoot_1(){
+yx Enemy::shoot_4(){
     int xL = this->xLoc-1;
 
-    int i = 0;
-    while(map->is_blank(yLoc, xL) && i < 10){
+    while(mvwinch(map->getWin(), yLoc, xL-1) != '@' && xL > 1){
         if(xL != xLoc-1) mvwaddch(this->map->getWin(), this->yLoc, xL+1, ' ');
-        mvwaddch(this->map->getWin(), this->yLoc, xL, 'O');
+        mvwaddch(this->map->getWin(), this->yLoc, xL, ']');
         wrefresh(this->map->getWin());
         xL--;
-        i++;
-
-        usleep(30000);
+        
+        usleep(10000);
     }
     mvwaddch(this->map->getWin(), this->yLoc, xL+1, ' ');
     wrefresh(this->map->getWin());
 
+    yx c;
+    c.x = xL-1;
+    c.y = yLoc;
+
+    return c;
+}
+
+yx Enemy::shoot_left_3(){
+    int xL = this->xLoc-1;
+
+    while(map->is_blank(yLoc, xL-1)){
+        if(xL != xLoc-1) mvwaddch(this->map->getWin(), this->yLoc, xL+1, ' ');
+        mvwaddch(this->map->getWin(), this->yLoc, xL, '-');
+        wrefresh(this->map->getWin());
+        xL--;
+        
+        usleep(80000);
+    }
+    mvwaddch(this->map->getWin(), this->yLoc, xL+1, ' ');
+    wrefresh(this->map->getWin());
+
+    yx c;
+    c.x = xL-1;
+    c.y = yLoc;
+
+    return c;
+}
+
+yx Enemy::shoot_right_3(){
+    int xL = this->xLoc+1;
+
+    while(map->is_blank(yLoc, xL+1)){
+        if(xL != xLoc+1) mvwaddch(this->map->getWin(), this->yLoc, xL-1, ' ');
+        mvwaddch(this->map->getWin(), this->yLoc, xL, '-');
+        wrefresh(this->map->getWin());
+        xL++;
+        
+        usleep(80000);
+    }
+    mvwaddch(this->map->getWin(), this->yLoc, xL-1, ' ');
+    wrefresh(this->map->getWin());
+
+    yx c;
+    c.x = xL+1;
+    c.y = yLoc;
+
+    return c;
+}
+
+yx Enemy::shoot_top_3(){
+    int yL = this->yLoc-1;
+
+    while(map->is_blank(yL-1, xLoc)){
+        if(yL != yLoc-1) mvwaddch(this->map->getWin(), yL+1, this->xLoc, ' ');
+        mvwaddch(this->map->getWin(), yL, this->xLoc, '|');
+        wrefresh(this->map->getWin());
+        yL--;
+        
+        usleep(80000);
+    }
+    mvwaddch(this->map->getWin(), yL+1, this->xLoc, ' ');
+    wrefresh(this->map->getWin());
+
+    yx c;
+    c.x = this->xLoc;
+    c.y = yL-1;
+
+    return c;
+}
+
+yx Enemy::shoot_down_3(){
+    int yL = this->yLoc+1;
+
+    while(map->is_blank(yL+1, xLoc)){
+        if(yL != yLoc+1) mvwaddch(this->map->getWin(), yL-1, this->xLoc, ' ');
+        mvwaddch(this->map->getWin(), yL, this->xLoc, '|');
+        wrefresh(this->map->getWin());
+        yL++;
+        
+        usleep(80000);
+    }
+    mvwaddch(this->map->getWin(), yL-1, this->xLoc, ' ');
+    wrefresh(this->map->getWin());
+
+    yx c;
+    c.x = this->xLoc;
+    c.y = yL+1;
+
+    return c;
+}
+
+yx Enemy::shoot_3(){
+    yx c;
+
+    srand(time(NULL));
+    int n = rand() % 4;
+
+    if(n == 0) c = shoot_top_3();
+    else if(n == 1) c = shoot_down_3();
+    else if(n == 2) c = shoot_left_3();
+    else if(n == 3) c = shoot_right_3();
+
+    return c;
+}
+
+yx Enemy::shoot_1(){
+    int xL = this->xLoc-1;
+
+    if(!(yLoc == p->get_yLoc() && xLoc != p->get_xLoc()-1)){
+        int i = 0;
+        while(map->is_blank(yLoc, xL) && i < 10){
+            if(xL != xLoc-1) mvwaddch(this->map->getWin(), this->yLoc, xL+1, ' ');
+            mvwaddch(this->map->getWin(), this->yLoc, xL, 'O');
+            wrefresh(this->map->getWin());
+            xL--;
+            i++;
+
+            usleep(30000);
+        }
+        mvwaddch(this->map->getWin(), this->yLoc, xL+1, ' ');
+        wrefresh(this->map->getWin());
+    }
+    
     yx c;
     c.x = xL;
     c.y = yLoc;
@@ -279,13 +408,16 @@ int Enemy::get_lives(){
 yx Enemy::shoot(){
     if(this->type == 1) return shoot_1();
     else if(this->type == 2) return shoot_2();
-    else return shoot_1();
+    else if(this->type == 3) return shoot_3();
+    else return shoot_4();
 }
 
 void Enemy::mv(){
     if(type == 1) mv_1();
     else if(type == 2) mv_2();
-    this_thread::sleep_for(chrono::milliseconds(500));
+    else if(type == 3) mv_3();
 }
 
-
+int Enemy::get_type(){
+    return this->type;
+}

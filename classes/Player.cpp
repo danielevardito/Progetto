@@ -321,7 +321,6 @@ yx Player::shoot(){
     if(weapon == 1) c = shoot_1();
     else if(weapon == 2) c = shoot_2();
     else if(weapon == 3) c = shoot_3();
-    //usleep(200000);
 
     return c;
 }
@@ -340,4 +339,8 @@ bool Player::hitted(int y, int x){
     else if(mvwinch(map->getWin(), y, x) == '?') return true;
     else if(mvwinch(map->getWin(), y, x) == '!') return true;
     else return false;
+}
+
+void Player::reset_lives(){
+    this->lives = 0;
 }

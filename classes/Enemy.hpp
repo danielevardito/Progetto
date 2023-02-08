@@ -1,8 +1,6 @@
 #ifndef _ENEMY_HPP_
 #define _ENEMY_HPP_
 
-#include <thread>
-#include <chrono>
 #include "Player.hpp"
 
 class Enemy{
@@ -38,7 +36,16 @@ class Enemy{
       void mvdown_3();
       void mvleft_3();
       void mvright_3();
+
+      yx shoot_left_3();
+      yx shoot_right_3();
+      yx shoot_top_3();
+      yx shoot_down_3();
+      yx shoot_3();
       void mv_3();
+
+      yx shoot_4();
+      void mv_4();
     public:
       Enemy(Map *map, Player *p, int type, int yLoc);
       void display();
@@ -49,6 +56,8 @@ class Enemy{
       int get_yLoc();
       int get_xLoc();
       int get_lives();
+
+      int get_type();
 
       void decrease_lives();
       bool dead();
