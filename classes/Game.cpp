@@ -55,6 +55,7 @@ Game::Game(MainWin *mw, Map *map, Player *p){
                 y++;
             }
             enemies[2] = new Enemy(map, p, 3, y);
+            y++;
             enemies[3] = new Enemy(map, p, 3, y);
         }
 

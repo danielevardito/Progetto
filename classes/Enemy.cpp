@@ -133,55 +133,67 @@ void Enemy::mv_1(){
     else if(mv >= 5 && mv <= 7) mvleft_1(nX); 
 }
 
-void Enemy::mvup_3(){
-    int distance = rand() % 2 + 2;
+void Enemy::mvup_3(int i = 0){
+    if(i < 5){
+        int distance = rand() % 2 + 2;
 
-    if(p->get_yLoc()-distance > map->get_beg_y()+1){
-        mvwaddch(map->getWin(), yLoc, xLoc, ' ');
-        wrefresh(map->getWin());
-        sleep(1);
-        xLoc = p->get_xLoc();
-        yLoc = p->get_yLoc()-distance;
-        this->display();
+        if(p->get_yLoc()-distance > map->get_beg_y()+1 && !is_occupied(p->get_yLoc()-distance, p->get_xLoc())){
+            mvwaddch(map->getWin(), yLoc, xLoc, ' ');
+            wrefresh(map->getWin());
+            sleep(1);
+            xLoc = p->get_xLoc();
+            yLoc = p->get_yLoc()-distance;
+            this->display();
+        }
+        else mvup_3(i+1);
+        }
+}
+
+void Enemy::mvdown_3(int i = 0){
+    if(i < 5){
+        int distance = rand() % 2 + 2;
+
+        if(p->get_yLoc()+distance < map->get_height()-1 && !is_occupied(p->get_yLoc()+distance, p->get_xLoc())){
+            mvwaddch(map->getWin(), yLoc, xLoc, ' ');
+            wrefresh(map->getWin());
+            sleep(1);
+            xLoc = p->get_xLoc();
+            yLoc = p->get_yLoc()+distance;
+            this->display();
+        }
+        else mvdown_3();
     }
 }
 
-void Enemy::mvdown_3(){
-    int distance = rand() % 2 + 2;
+void Enemy::mvleft_3(int i = 0){
+    if(i < 5){
+        int distance = rand() % 2 + 2;
 
-    if(p->get_yLoc()+distance < map->get_height()-1){
-        mvwaddch(map->getWin(), yLoc, xLoc, ' ');
-        wrefresh(map->getWin());
-        sleep(1);
-        xLoc = p->get_xLoc();
-        yLoc = p->get_yLoc()+distance;
-        this->display();
+        if(p->get_xLoc()-distance > map->get_beg_x()+1 && !is_occupied(p->get_yLoc(), p->get_xLoc()-distance)){
+            mvwaddch(map->getWin(), yLoc, xLoc, ' ');
+            wrefresh(map->getWin());
+            sleep(1);
+            xLoc = p->get_xLoc()-distance;;
+            yLoc = p->get_yLoc();
+            this->display();
+        }
+        else mvleft_3(i+1);
     }
 }
 
-void Enemy::mvleft_3(){
-    int distance = rand() % 2 + 2;
+void Enemy::mvright_3(int i = 0){
+    if(i < 5){
+        int distance = rand() % 2 + 2;
 
-    if(p->get_xLoc()-distance > map->get_beg_x()+1){
-        mvwaddch(map->getWin(), yLoc, xLoc, ' ');
-        wrefresh(map->getWin());
-        sleep(1);
-        xLoc = p->get_xLoc()-distance;;
-        yLoc = p->get_yLoc();
-        this->display();
-    }
-}
-
-void Enemy::mvright_3(){
-    int distance = rand() % 2 + 2;
-
-    if(p->get_xLoc()+distance < map->get_width()-1){
-        mvwaddch(map->getWin(), yLoc, xLoc, ' ');
-        wrefresh(map->getWin());
-        sleep(1);
-        xLoc = p->get_xLoc()+distance;;
-        yLoc = p->get_yLoc();
-        this->display();
+        if(p->get_xLoc()+distance < map->get_width()-1 && !is_occupied(p->get_yLoc(), p->get_xLoc()+distance)){
+            mvwaddch(map->getWin(), yLoc, xLoc, ' ');
+            wrefresh(map->getWin());
+            sleep(1);
+            xLoc = p->get_xLoc()+distance;;
+            yLoc = p->get_yLoc();
+            this->display();
+        }
+        else mvright_3(i+1);
     }
 }
 
@@ -416,8 +428,18 @@ void Enemy::mv(){
     if(type == 1) mv_1();
     else if(type == 2) mv_2();
     else if(type == 3) mv_3();
+    else if(type == 4) mv_4();
 }
 
 int Enemy::get_type(){
     return this->type;
+}
+
+bool Enemy::is_occupied(int y, int x){
+    if(mvwinch(map->getWin(), y, x) == '@') return true;
+    if(mvwinch(map->getWin(), y, x) == '!') return true;
+    if(mvwinch(map->getWin(), y, x) == '?') return true;
+    if(mvwinch(map->getWin(), y, x) == '#') return true;
+    if(mvwinch(map->getWin(), y, x) == '&') return true;
+    else return false;
 }

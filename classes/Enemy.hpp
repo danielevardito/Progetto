@@ -32,10 +32,10 @@ class Enemy{
       yx shoot_2();
       void mv_2();
 
-      void mvup_3();
-      void mvdown_3();
-      void mvleft_3();
-      void mvright_3();
+      void mvup_3(int i);
+      void mvdown_3(int i);
+      void mvleft_3(int i);
+      void mvright_3(int i);
 
       yx shoot_left_3();
       yx shoot_right_3();
@@ -46,6 +46,8 @@ class Enemy{
 
       yx shoot_4();
       void mv_4();
+
+      bool is_occupied(int y, int x);
     public:
       Enemy(Map *map, Player *p, int type, int yLoc);
       void display();
