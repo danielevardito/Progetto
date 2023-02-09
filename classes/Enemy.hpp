@@ -3,6 +3,9 @@
 
 #include "Player.hpp"
 
+/*
+classe che rappresenta un nemico, esso può essere di 4 tipi, ognuno di essi si muove e spara in modo differente.ù
+*/
 class Enemy{
     protected:
       Map *map;

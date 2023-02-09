@@ -8,9 +8,13 @@ Game::Game(MainWin *mw, Map *map, Player *p){
     srand(time(NULL));
 
     this->p = p;
+    p->reset_yxLoc();
     this->map = map;
     this->sw = p->get_stats_win();
 
+/*
+seleziona la difficoltà del gioco in base al tipo e alla velocità dell'arma
+*/
     if(p->get_weapon() == 1){
         if(p->get_w_speed() == 1){
             enemies[0] = new Enemy(map, p, 1, map->get_height()/2);
@@ -106,7 +110,9 @@ Game::Game(MainWin *mw, Map *map, Player *p){
         }
 
     }
-    
+/*
+scrive una mappa selezionata randomicamente
+*/
     int n = rand()%6+1;
 
     map->draw_n_map(n);
@@ -125,6 +131,9 @@ Game::Game(MainWin *mw, Map *map, Player *p){
     p->display();
 }
 
+/*
+metodo ricorsivo che verifica se i nemici sono tutti morti, per decretare la vittoria
+*/
 bool Game::all_dead(int i = 0){
     if(i == nEnemies) return true;
     if(enemies[i]->dead()) return true && all_dead(i+1);
@@ -138,42 +147,65 @@ Vengono gestite le interazioni tra player e nemici.
 */
 int Game::play_game(){
     int won = 2;
+    int i = 0; //contatore che serve a decidere quando far muovere i nemici
+    double interv = 2.5; //moltiplicatore che serve a dimimnuire o aumentare i numero di movimenti di nemici
+    while(won == 2){ //ciclo che funziona finchè won non abbia un risultato
 
-    int i = 0;
-    double interv = 2;
-    while(won == 2){
+/*
+se i nemici sono tutti morti, hai vinto
+*/
         if(this->all_dead()){
+            usleep(500000);
             won = 1;
         }
+/*
+se le vite del player sono 0, hai perso
+*/
         else if(p->get_lives() == 0){
             won = 0;
             sleep(2);
         }
         else{
             char c = this->p->getmv();
+            /*
             if(c == 'x'){
             p->decrease_lives();
             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
             } 
-
+            */
             p->display();
+            /*
+            cicli che agiscono per ogni nemico presente nella partita
+            */
             for(int j = 0; j < nEnemies; j++){
                 if(!enemies[j]->dead()) enemies[j]->display();
             }
             for(int j = 0; j < this->nEnemies && p->get_lives() != 0; j++){
                 if(!enemies[j]->dead()){
+                    /*
+                    momento in cui si muove e spara il nemico
+                    */
                     if(i % intervals[j] == 0){
                         p->display();
                         keypad(map->getWin(), false);
                         enemies[j]->mv();
                         yx c = enemies[j]->shoot();
+                        /*
+                        una volta sparato, verifica se si è colpito il player e in tal caso decrementa la vita
+                        */
                         if(c.y == p->get_yLoc() && c.x == p->get_xLoc()){
                             if(enemies[j]->get_type() == 4) p->reset_lives();
                             else p->decrease_lives();
+                            if(p->get_lives() == 0) {
+                                mvwaddch(map->getWin(), p->get_yLoc(), p->get_xLoc(), ' ');
+                            }
                             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
                         }
-                        keypad(map->getWin(), true);
+                        if(p->get_lives() > 0) keypad(map->getWin(), true);
 
+                        /*
+                        diminuisci il moltiplicatore degli intervalli
+                        */
                         if(interv >= 0.2){
                             intervals[j]*=interv;
                             interv-=0.1;
@@ -184,6 +216,9 @@ int Game::play_game(){
                 
             }
 
+            /*
+            se un nemico viene sparato, decrementa la sua vita
+            */
             if(c == 's'){
                 yx cP = p->shoot();
                 for(int j = 0; j < nEnemies; j++){

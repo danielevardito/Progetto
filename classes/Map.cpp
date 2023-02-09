@@ -230,22 +230,33 @@ void Map::draw_map5(){
 void Map::draw_market(int weapon){
     char w, ws;
 
-    if(weapon == 1) w = '|';
-    else if(weapon == 2) w = 'Z';
-    else if(weapon == 3) w = 'X';
+    if(weapon == 1){
+        w = '|';
+        ws = '>';
+    } 
+    else if(weapon == 2){
+        w = 'Z';
+        ws = '|';
+    } 
+    else if(weapon == 3){
+        w = 'x';
+        ws = 'Z';
+    } 
 
     this->draw_empty();
-    int height4 = get_height()/4;
+
+    mvwprintw(win, 1, get_width()/2-3, "MARKET");
 
     mvwaddch(win, get_beg_y()+2, get_width()/2, w);
-    if(weapon == 1) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "7 COINS: Arma che perfora un muro");
-    else if(weapon == 1) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "7 COINS: Arma che perfora tutti i muri");
-    mvwaddch(win, height4, get_width()/2, '+');
-    mvwaddch(win, height4, get_width()/2+1, w);
-    mvwprintw(win, height4, get_width()/2+3, "2 COINS: Aumenta la velocità dell'arma");
-    mvwaddch(win, height4*2, get_width()/2, '+');
-    mvwaddch(win, height4*2, get_width()/2+1, 'V');
-    mvwprintw(win, height4*2, get_width()/2+3, "2 COINS: AUMENTA LA VITA");
+    if(weapon == 1) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "   7 COINS: Arma che perfora un muro");
+    else if(weapon == 2) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "   7 COINS: Arma che perfora tutti i muri");
+    else if(weapon == 3) mvwprintw(win, get_beg_y()+2, get_width()/2+2, "   Hai l'arma più forte");
+    mvwaddch(win, get_beg_y()+4, get_width()/2, '+');
+    mvwaddch(win, get_beg_y()+4, get_width()/2+1, ws);
+    mvwprintw(win, get_beg_y()+4, get_width()/2+3, "   2 COINS: Aumenta la velocità dell'arma");
+    mvwaddch(win, get_beg_y()+6, get_width()/2, 'V');
+    mvwaddch(win, get_beg_y()+6, get_width()/2+1, '+');
+    mvwprintw(win, get_beg_y()+6, get_width()/2+3, "   2 COINS: AUMENTA LA VITA");
     mvwprintw(win, get_height()-2, get_width()/2, "] exit");
 
     box(this->win, 0, 0);

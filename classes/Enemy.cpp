@@ -1,5 +1,9 @@
 #include "Enemy.hpp"
 
+/*
+Costruttore, vengono passati mappa player, e posizione in altezza
+In base al tipo, inizializza il carattere
+*/
 Enemy::Enemy(Map *map, Player *p, int type, int yLoc){
     this->type = type;
     this->map = map;
@@ -24,6 +28,9 @@ Enemy::Enemy(Map *map, Player *p, int type, int yLoc){
     } 
 }
 
+/*
+visualizza il carattere
+*/
 void Enemy::display(){
     mvwaddch(this->map->getWin(), yLoc, xLoc, ch);
     wrefresh(map->getWin());
@@ -402,10 +409,14 @@ void Enemy::decrease_lives(){
     if(lives <= 0){
         mvwaddch(map->getWin(), yLoc, xLoc, '*');
         wrefresh(map->getWin());
-        sleep(1);
-        mvwaddch(map->getWin(), yLoc, xLoc, ' ');
-        wrefresh(map->getWin());
     } 
+    else{
+        mvwaddch(map->getWin(), yLoc, xLoc, '*');
+        wrefresh(map->getWin());
+        usleep(500000);
+        mvwaddch(map->getWin(), yLoc, xLoc, this->ch);
+        wrefresh(map->getWin());
+    }
 }
 
 bool Enemy::dead(){
@@ -441,5 +452,6 @@ bool Enemy::is_occupied(int y, int x){
     if(mvwinch(map->getWin(), y, x) == '?') return true;
     if(mvwinch(map->getWin(), y, x) == '#') return true;
     if(mvwinch(map->getWin(), y, x) == '&') return true;
+    if(mvwinch(map->getWin(), y, x) == '*') return true;
     else return false;
 }

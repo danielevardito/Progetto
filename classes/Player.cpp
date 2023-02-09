@@ -148,8 +148,7 @@ void Player::new_game(Map *map, int weapon, int w_speed){
     this->yMax = map->get_height();
     keypad(map->getWin(), true);
 
-    this->xLoc = 1;
-    this->yLoc = yMax/2;
+    reset_yxLoc();
 }
 
 StatsWin* Player::get_stats_win(){
@@ -333,6 +332,10 @@ int Player::get_yLoc(){
     return this->yLoc;
 }
 
+/*
+Verifica se è stato colpito uno di questi caratteri. Serve a non essere cancellati da armi che 
+perforano muri
+*/
 bool Player::hitted(int y, int x){
     if(mvwinch(map->getWin(), y, x) == '&') return true;
     else if(mvwinch(map->getWin(), y, x) == '#') return true;
@@ -344,6 +347,8 @@ bool Player::hitted(int y, int x){
     else if(mvwinch(map->getWin(), y, x) == '>') return true;
     else if(mvwinch(map->getWin(), y, x) == 'Z') return true;
     else if(mvwinch(map->getWin(), y, x) == ']') return true;
+    else if(mvwinch(map->getWin(), y, x) == 'x') return true;
+    else if(mvwinch(map->getWin(), y, x) == '*') return true;
     else return false;
 }
 
@@ -351,14 +356,80 @@ void Player::reset_lives(){
     this->lives = 0;
 }
 
-void Player::increase_weapon(){
-    if(weapon < 3) weapon++;
+/*
+Metodo che rappresenta il market, nel quale si possono comprare armi, aumentare la velocità
+delle armi o comprare vita.
+*/
+void Player::market(){
+    map->draw_empty();
+    map->draw_market(weapon);
+    sw->display(lives, coins, weapon, w_speed);
+    display();
+    bool exit = false;
+
+    while(!exit){
+        char c = getmv();
+
+        if(c == 's'){
+            yx c = shoot();
+            if(mvwinch(map->getWin(), c.y, c.x) == '|'){
+                if(coins >= 7){
+                    coins -= 7;
+                    weapon++;
+                    w_speed = 1;
+                    sw->display(lives, coins, weapon, w_speed);
+                    map->draw_market(weapon);
+                }
+            }
+            
+            else if(mvwinch(map->getWin(), c.y, c.x) == 'Z'){
+                if(coins >= 7){
+                    coins -= 7;
+                    weapon++;
+                    w_speed = 1;
+                    sw->display(lives, coins, weapon, w_speed);
+                    map->draw_market(weapon);
+                }
+            }
+
+            if(mvwinch(map->getWin(), c.y, c.x) == '+'){
+                if(w_speed < 3){
+                    if(coins >= 2){
+                        coins -= 2;
+                        w_speed++;
+                        sw->display(lives, coins, weapon, w_speed);
+                    }
+                }
+            }
+
+            if(mvwinch(map->getWin(), c.y, c.x) == 'V'){
+                if(coins >= 2){
+                    lives++;
+                    coins -= 2;
+                    sw->display(lives, coins, weapon, w_speed);
+                }
+            }
+
+            if(mvwinch(map->getWin(), c.y, c.x) == ']'){
+                exit  = true;
+            }
+            
+        }
+        display();
+    }
+}
+/*
+Resetta la posizione del player a quella iniziale
+*/
+void Player::reset_yxLoc(){
+    yLoc = map->get_height()/2;
+    xLoc = 1;
 }
 
-void Player::increase_w_speed(){
-    if(weapon < 3) w_speed++;
+void Player::set_lives(int lives){
+    this->lives = lives;
 }
 
-void Player::increase_lives(){
-    lives++;
+void Player::set_coins(int coins){
+    this->coins = coins;
 }

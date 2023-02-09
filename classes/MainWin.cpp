@@ -32,6 +32,8 @@ int MainWin::get_width(){
 }
 
 void MainWin::draw_empty(){
+    wclear(win);
+    box(win, 0, 0);
     refresh();
-    wrefresh(this->win);
+    wrefresh(win);
 }

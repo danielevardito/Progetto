@@ -22,87 +22,33 @@ int main(){
 
     PlayMenu *pm = new PlayMenu(main_win);
 
+    Map *map = new Map(main_win);
+    Player *p = new Player(main_win, map);
     int play = pm->menu();
+    Game *g = new Game(main_win, map, p);
 
-    if(play == 0){
-        Map *map = new Map(main_win);
-        Player *p = new Player(main_win, map);
-        Game *g = new Game(main_win, map, p);
-
-        int won = g->play_game();
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 1, 2);
+    while(play == 0){
+        int won = 0;
+    
+        do{ 
+            if(won == 1){
+                p->increase_coins(4);
+                p->reset_yxLoc();
+                p->market();
+                map = new Map(main_win);
+            }
             g = new Game(main_win, map, p);
-
+            p->new_game(map, p->get_weapon(), p->get_w_speed());
+            p->display();
             won = g->play_game();
-        }
+        }while(won == 1);
 
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 1, 3);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 2, 1);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 2, 2);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 2, 3);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 3, 1);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 3, 2);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-
-        if(won == 1){
-            p->increase_coins(5);
-            map = new Map(main_win);
-            p->new_game(map, 3, 3);
-            g = new Game(main_win, map, p);
-
-            won = g->play_game();
-        }
-        
+        main_win->draw_empty();
+        map->draw_empty();
+        pm = new PlayMenu(main_win);
+        play = pm->menu();
+        p->set_lives(5);
+        p->set_coins(0);
     }
 
     endwin();

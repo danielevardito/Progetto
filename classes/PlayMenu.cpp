@@ -4,6 +4,7 @@ using namespace std;
 
 PlayMenu::PlayMenu(MainWin *mw) : SubWin(mw, 2){
     SubWin(mw, 0);
+    box(win, 0, 0);
 }
 /*
 Visualizza il menu, al valore di ritorno 0 è associato play, quindi comincerà una partita, 
@@ -40,9 +41,8 @@ int PlayMenu::menu(){
                 button = 0;
             }
         }   
-        //nel caso in cui non venga premuta una freccetta, assgna a is_pressed l'indice della voce del menu
-        //evidenziata correntemente
-        else if(int(wgetch(this->win)) == ' '){
+        //nel caso in cui venga premuta barra spaziatrice, seleziona play o quit
+        else if(int(c) == ' '){
             this->is_pressed = button;
         }
     }
