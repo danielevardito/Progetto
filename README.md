@@ -3,6 +3,8 @@ PROGETTO PROGRAMMAZIONE
 Il progetto consiste in un gioco eseguibile da terminale, il quale scopo è uccidere nemici di diverso numero
 e tipo, i quali sono altrettanto capaci di uccidere il protagonista.
 
+Per giocare bisogna eseguire il file "Main"
+
 Premuto il tasto play, si entra in una mappa (predefinita o generata random) pescata casualmente, all'interno
 della quale ci sono dei nemici da sconfiggere.
 
