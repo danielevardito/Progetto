@@ -70,7 +70,7 @@ int main(){
                 list = list->next;
 
                 while(list->gp.mp.nMap == list->prev->gp.mp.nMap){
-                    list->gp.mp.nMap = rand()%5+1;
+                    list->gp.mp.nMap = rand()%9+1;
                 }
             }
             

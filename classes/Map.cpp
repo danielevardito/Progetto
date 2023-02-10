@@ -289,6 +289,283 @@ void Map::draw_map5(){
     wrefresh(win);
 }
 
+void Map::draw_map6(){
+    this->draw_empty();
+
+    int heigth7 = this->get_height()/7;
+    int width12 = this->get_width()/12;
+
+    //PRIMA RIGA
+    //primo quadrato
+    //lati
+    mvwvline(win, heigth7*1, width12*2, ACS_VLINE, heigth7*2);//lato sinistro
+    mvwvline(win, heigth7*1, width12*4, ACS_VLINE, heigth7*2);//lato destro
+    mvwhline(win, heigth7*1, width12*2, ACS_HLINE, width12*2);//lato sopra
+    mvwhline(win, heigth7*3, width12*2, ACS_HLINE, width12*2);//lato sotto
+    //angoli
+    mvwaddch(win, heigth7*1, width12*4, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*3, width12*4, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*3, width12*2, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*1, width12*2, ACS_ULCORNER);//angolo alto sinistro
+
+    //secondo quadrato
+    //lati
+    mvwvline(win, heigth7*1, width12*5, ACS_VLINE, heigth7*2);//lato sinistro
+    mvwvline(win, heigth7*1, width12*7, ACS_VLINE, heigth7*2);//lato destro
+    mvwhline(win, heigth7*1, width12*5, ACS_HLINE, width12*2);//lato sopra
+    mvwhline(win, heigth7*3, width12*5, ACS_HLINE, width12*2);//lato sotto
+    //angoli
+    mvwaddch(win, heigth7*1, width12*7, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*3, width12*7, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*3, width12*5, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*1, width12*5, ACS_ULCORNER);//angolo alto sinistro
+
+    //terzo quadrato
+    //lati
+    mvwvline(win, heigth7*1, width12*8, ACS_VLINE, heigth7*2);//lato sinistro
+    mvwvline(win, heigth7*1, width12*10, ACS_VLINE, heigth7*2);//lato destro
+    mvwhline(win, heigth7*1, width12*8, ACS_HLINE, width12*2);//lato sopra
+    mvwhline(win, heigth7*3, width12*8, ACS_HLINE, width12*2);//lato sotto
+    //angoli
+    mvwaddch(win, heigth7*1, width12*10, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*3, width12*10, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*3, width12*8, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*1, width12*8, ACS_ULCORNER);//angolo alto sinistro
+
+    //SECONDA RIGA
+    //primo quadrato
+    //lati
+    mvwvline(win, heigth7*4, width12*2, ACS_VLINE, heigth7*2);//lato sinistro
+    mvwvline(win, heigth7*4, width12*4, ACS_VLINE, heigth7*2);//lato destro
+    mvwhline(win, heigth7*4, width12*2, ACS_HLINE, width12*2);//lato sopra
+    mvwhline(win, heigth7*6, width12*2, ACS_HLINE, width12*2);//lato sotto
+    //angoli
+    mvwaddch(win, heigth7*4, width12*4, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*6, width12*4, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*6, width12*2, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*4, width12*2, ACS_ULCORNER);//angolo alto sinistro
+
+    //secondo quadrato
+    //lati
+    mvwvline(win, heigth7*4, width12*5, ACS_VLINE, heigth7*2);//lato sinistro
+    mvwvline(win, heigth7*4, width12*7, ACS_VLINE, heigth7*2);//lato destro
+    mvwhline(win, heigth7*4, width12*5, ACS_HLINE, width12*2);//lato sopra
+    mvwhline(win, heigth7*6, width12*5, ACS_HLINE, width12*2);//lato sotto
+    //angoli
+    mvwaddch(win, heigth7*4, width12*7, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*6, width12*7, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*6, width12*5, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*4, width12*5, ACS_ULCORNER);//angolo alto sinistro
+
+    //terzo quadrato
+    //lati
+    mvwvline(win, heigth7*4, width12*8, ACS_VLINE, heigth7*2);//lato sinistro
+    mvwvline(win, heigth7*4, width12*10, ACS_VLINE, heigth7*2);//lato destro
+    mvwhline(win, heigth7*4, width12*8, ACS_HLINE, width12*2);//lato sopra
+    mvwhline(win, heigth7*6, width12*8, ACS_HLINE, width12*2);//lato sotto
+    //angoli
+    mvwaddch(win, heigth7*4, width12*10, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*6, width12*10, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*6, width12*8, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*4, width12*8, ACS_ULCORNER);//angolo alto sinistro
+
+    box(this->win, 0, 0);
+
+    wrefresh(win);
+}
+
+void Map::draw_map7(){
+    this->draw_empty();
+
+    int heigth7 = this->get_height()/7;
+    int width12 = this->get_width()/12;
+
+    //FIGURA ALTO A SINISTRA
+    //lati
+    mvwvline(win, heigth7*1, width12*2, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*1, width12*2, ACS_HLINE, width12*2);
+    mvwvline(win, heigth7*1, width12*4, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*2, width12*3, ACS_HLINE, width12*1);
+    mvwvline(win, heigth7*2, width12*3, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*3, width12*2, ACS_HLINE, width12*1);
+    //angoli
+    mvwaddch(win, heigth7*1, width12*4, ACS_URCORNER);//angolo alto destro (height 1/7  width 4/12)
+    mvwaddch(win, heigth7*2, width12*4, ACS_LRCORNER);//angolo (height 2/7  widht 4/12)
+    mvwaddch(win, heigth7*2, width12*3, ACS_ULCORNER);//angolo (height 2/7  widht 3/12)
+    mvwaddch(win, heigth7*3, width12*3, ACS_LRCORNER);//angolo (height 3/7  widht 3/12)
+    mvwaddch(win, heigth7*3, width12*2, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*1, width12*2, ACS_ULCORNER);//angolo alto sinistro
+    //FIGURA BASSA A SINISTRA
+    //lati
+    mvwvline(win, heigth7*4, width12*2, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*4, width12*2, ACS_HLINE, width12*1);
+    mvwvline(win, heigth7*4, width12*3, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*5, width12*3, ACS_HLINE, width12*1);
+    mvwvline(win, heigth7*5, width12*4, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*6, width12*2, ACS_HLINE, width12*2);
+    //angoli
+    mvwaddch(win, heigth7*4, width12*2, ACS_ULCORNER);//angolo alto destro (height 1/7  width 4/12)
+    mvwaddch(win, heigth7*4, width12*3, ACS_URCORNER);//angolo (height 2/7  widht 4/12)
+    mvwaddch(win, heigth7*5, width12*3, ACS_LLCORNER);//angolo (height 2/7  widht 3/12)
+    mvwaddch(win, heigth7*5, width12*4, ACS_URCORNER);//angolo (height 3/7  widht 3/12)
+    mvwaddch(win, heigth7*6, width12*4, ACS_LRCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*6, width12*2, ACS_LLCORNER);//angolo alto sinistro
+
+    //QUADRATO CENTRALE
+    //lati
+    mvwvline(win, heigth7*3, width12*5, ACS_VLINE, heigth7*1);
+    mvwvline(win, heigth7*3, width12*7, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*3, width12*5, ACS_HLINE, width12*2);
+    mvwhline(win, heigth7*4, width12*5, ACS_HLINE, width12*2);
+    //angoli
+    mvwaddch(win, heigth7*3, width12*7, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*4, width12*7, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*4, width12*5, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*3, width12*5, ACS_ULCORNER);//angolo alto sinistro
+
+    //FIGURA ALTO A DESTRA
+    //lati
+    mvwhline(win, heigth7*1, width12*8, ACS_HLINE, width12*2);
+    mvwvline(win, heigth7*1, width12*10, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*3, width12*9, ACS_HLINE, width12*1);
+    mvwvline(win, heigth7*2, width12*9, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*2, width12*8, ACS_HLINE, width12*1);
+    mvwvline(win, heigth7*1, width12*8, ACS_VLINE, heigth7*1);
+    //angoli
+    mvwaddch(win, heigth7*1, width12*10, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*3, width12*10, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*3, width12*9, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*2, width12*8, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*1, width12*8, ACS_ULCORNER);//angolo alto sinistro
+    mvwaddch(win, heigth7*2, width12*9, ACS_URCORNER);//angolo alto destro
+
+    //FIGURA BASSA DESTRA
+    //lati
+    mvwhline(win, heigth7*4, width12*9, ACS_HLINE, width12*1);
+    mvwhline(win, heigth7*5, width12*8, ACS_HLINE, width12*1);
+    mvwhline(win, heigth7*6, width12*8, ACS_HLINE, width12*2);
+    mvwvline(win, heigth7*4, width12*9, ACS_VLINE, heigth7*1);
+    mvwvline(win, heigth7*5, width12*8, ACS_VLINE, heigth7*1);
+    mvwvline(win, heigth7*4, width12*10, ACS_VLINE, heigth7*2);
+
+    //angoli
+    mvwaddch(win, heigth7*4, width12*10, ACS_URCORNER);//angolo alto destro
+    mvwaddch(win, heigth7*6, width12*10, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*6, width12*8, ACS_LLCORNER);//angolo basso sinistro
+    mvwaddch(win, heigth7*5, width12*8, ACS_ULCORNER);//angolo alto sinistro
+    mvwaddch(win, heigth7*5, width12*9, ACS_LRCORNER);//angolo basso destro
+    mvwaddch(win, heigth7*4, width12*9, ACS_ULCORNER);//angolo alto sinistro
+
+    box(this->win, 0, 0);
+
+    wrefresh(win);
+}
+
+void Map::draw_map8(){
+    this->draw_empty();
+
+    int heigth7 = this->get_height()/7;
+    int width12 = this->get_width()/12;
+
+    //FIGURA ALTO A SINISTRA
+    //lati
+    mvwvline(win, heigth7*1, width12*2, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*1, width12*2, ACS_HLINE, width12*2);
+    mvwaddch(win, heigth7*1, width12*2, ACS_ULCORNER);
+
+    //FIGURA BASSO A SINISTRA
+    //lati
+    mvwvline(win, heigth7*4, width12*2, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*6, width12*2, ACS_HLINE, width12*2);
+    mvwaddch(win, heigth7*6, width12*2, ACS_LLCORNER);
+
+    //FIGURA ALTA DESTRA
+    //lati
+    mvwvline(win, heigth7*1, width12*10, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*1, width12*8, ACS_HLINE, width12*2);
+    mvwaddch(win, heigth7*1, width12*10, ACS_URCORNER);
+
+    //FIGURA BASSO DESTRA
+    //lati
+    mvwvline(win, heigth7*4, width12*10, ACS_VLINE, heigth7*2);
+    mvwhline(win, heigth7*6, width12*8, ACS_HLINE, width12*2);
+    mvwaddch(win, heigth7*6, width12*10, ACS_LRCORNER);
+
+    //FIGURE CENTRALI
+    mvwvline(win, heigth7*2, width12*5, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*3, width12*4, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*3, width12*5, ACS_LRCORNER);
+
+    mvwvline(win, heigth7*4, width12*5, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*4, width12*4, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*4, width12*5, ACS_URCORNER);
+
+    mvwvline(win, heigth7*4, width12*7, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*4, width12*7, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*4, width12*7, ACS_ULCORNER);
+
+    mvwvline(win, heigth7*2, width12*7, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*3, width12*7, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*3, width12*7, ACS_LLCORNER);
+
+    mvwvline(win, heigth7*3, width12*6, ACS_VLINE, heigth7*1);
+
+    box(this->win, 0, 0);
+
+    wrefresh(win);
+}
+
+void Map::draw_map9(){
+    this->draw_empty();
+
+    int heigth7 = this->get_height()/7;
+    int width12 = this->get_width()/12;
+
+    //PARTE SINISTRA
+    mvwvline(win, heigth7*2, width12*2, ACS_VLINE, heigth7*3);
+
+    mvwvline(win, heigth7*1, width12*3, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*1, width12*3, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*1, width12*3, ACS_ULCORNER);
+
+    mvwvline(win, heigth7*3, width12*4, ACS_VLINE, heigth7*1);
+
+    mvwvline(win, heigth7*5, width12*3, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*6, width12*3, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*6, width12*3, ACS_LLCORNER);
+
+
+    //PARTE CENTRALE
+    mvwvline(win, heigth7*2, width12*5, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*2, width12*5, ACS_HLINE, width12*2);
+    mvwvline(win, heigth7*2, width12*7, ACS_VLINE, heigth7*1);
+    mvwaddch(win, heigth7*2, width12*5, ACS_ULCORNER);
+    mvwaddch(win, heigth7*2, width12*7, ACS_URCORNER);
+
+    mvwvline(win, heigth7*4, width12*5, ACS_VLINE, heigth7*1);
+    mvwvline(win, heigth7*4, width12*7, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*5, width12*5, ACS_HLINE, width12*2);
+    mvwaddch(win, heigth7*5, width12*5, ACS_LLCORNER);
+    mvwaddch(win, heigth7*5, width12*7, ACS_LRCORNER);
+
+    //PARTE DESTRA
+    mvwvline(win, heigth7*2, width12*10, ACS_VLINE, heigth7*3);
+
+    mvwvline(win, heigth7*1, width12*9, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*1, width12*8, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*1, width12*9, ACS_URCORNER);
+
+    mvwvline(win, heigth7*3, width12*8, ACS_VLINE, heigth7*1);
+
+    mvwvline(win, heigth7*5, width12*9, ACS_VLINE, heigth7*1);
+    mvwhline(win, heigth7*6, width12*8, ACS_HLINE, width12*1);
+    mvwaddch(win, heigth7*6, width12*9, ACS_LRCORNER);
+
+    box(this->win, 0, 0);
+
+    wrefresh(win);
+}
+
 void Map::draw_market(int weapon){
     char w, ws;
 
@@ -358,6 +635,26 @@ map_prop Map::draw_n_map(int n){
           mp.nMap = 5;
           break;
 
+        case 6:
+          draw_map6();
+          mp.nMap = 6;
+          break;
+
+        case 7:
+          this->draw_map7();
+          mp.nMap = 7;
+          break;
+
+        case 8:
+          this->draw_map8();
+          mp.nMap = 8;
+          break;
+
+        case 9:
+          this->draw_map9();
+          mp.nMap = 9;
+          break;
+
         default:
           mp = draw_map2();
           break;
@@ -388,8 +685,20 @@ void Map::draw_n_cp_map(map_prop mp){
           this->draw_map5();
           break;
 
-        default:
-          this->draw_map2();
+        case 6:
+          this->draw_map6();
+          break;
+
+        case 7:
+          this->draw_map7();
+          break;
+
+        case 8:
+          this->draw_map8();
+          break;
+
+        case 9:
+          this->draw_map9();
           break;
     }
 }

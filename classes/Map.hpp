@@ -20,7 +20,7 @@ struct rand2{
 };
 
 struct map_prop{
-    int nMap = rand()%5+1;
+    int nMap = rand()%9+1;
     rand1 r1;
     rand2 r2;
 };
@@ -39,6 +39,10 @@ class Map : public SubWin{
       void draw_map3();
       void draw_map4();
       void draw_map5();
+      void draw_map6();
+      void draw_map7();
+      void draw_map8();
+      void draw_map9();
       map_prop draw_n_map(int n);
       void draw_n_cp_map(map_prop mp);
 
