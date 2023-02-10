@@ -51,7 +51,6 @@ class Game{
       //Funzione che fa giocare una partita e ne restituisce l'esito
       bool all_dead(int i);
       game_prop play_game();
-      int enemies_size();
 };
 
 #endif

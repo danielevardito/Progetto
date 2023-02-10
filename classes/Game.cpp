@@ -112,17 +112,17 @@ se le vite del player sono 0, hai perso
             char c = this->p->getmv();
 
             if(prev == 0){
-                if(c == 'e'){
+                if(c == 'e' || c == 'E'){
                     won = 2;
                 }
             } 
             
-            
+            /*
             if(c == 'x'){
             p->decrease_lives();
             sw->display(p->get_lives(), p->get_coins(), p->get_weapon(), p->get_w_speed());
             } 
-            
+            */
             p->display();
             /*
             cicli che agiscono per ogni nemico presente nella partita
@@ -169,7 +169,7 @@ se le vite del player sono 0, hai perso
             /*
             se un nemico viene sparato, decrementa la sua vita
             */
-            if(c == 's'){
+            if(c == 's' || c == 'S'){
                 yx cP = p->shoot();
                 for(int j = 0; j < nEnemies; j++){
                     if(cP.y == enemies[j]->get_yLoc() && cP.x == enemies[j]->get_xLoc()){
@@ -177,9 +177,11 @@ se le vite del player sono 0, hai perso
                     }
                 }
             }
+            /*
             if(c == 'w'){
                 won = 1;
             }
+            */
             p->display();
             i++;
         }
@@ -192,16 +194,6 @@ se le vite del player sono 0, hai perso
     gp.won = won;
 
     return gp;
-}
-
-int Game::enemies_size(){
-    int i = 0;
-
-    while(this->enemies[i] != NULL){
-        i++;
-    }
-
-    return i;
 }
 
 void Game::select_diff(){
